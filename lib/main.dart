@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:pymbo/pages/home_page.dart';
+import 'package:splashscreen/splashscreen.dart';
  
-void main() => runApp(MyApp());
+void main(){
+  runApp(new MaterialApp(
+    home: new MyApp(),
+  ));
+}
  
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  MyApp({Key key}) : super(key: key);
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'pymbo app',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('pymbo'),
-        ),
-        body: Center(
-          child: Container(
-            child: Text('Hola Mundo!'),
-          ),
-        ),
-      ),
-    );
+    return SplashScreen(
+      seconds: 4,
+      navigateAfterSeconds: HomePage(),
+      loaderColor: Colors.red,
+      backgroundColor: Color(0xfff1faee),
+      );
   }
 }
