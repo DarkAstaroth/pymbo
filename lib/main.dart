@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pymbo/pages/home_page.dart';
 import 'package:splashscreen/splashscreen.dart';
+
+import 'pages/onboarding_page.dart';
  
 void main(){
   runApp(new MaterialApp(
@@ -19,7 +21,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return SplashScreen(
       seconds: 4,
-      navigateAfterSeconds: HomePage(),
+      navigateAfterSeconds: OnboardingPage(),
       loaderColor: Colors.red,
       backgroundColor: Color(0xfff1faee),
       );
