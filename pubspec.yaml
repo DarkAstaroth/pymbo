@@ -33,6 +33,7 @@ dependencies:
   flutter_bloc: ^4.0.0
   equatable: ^1.2.4
   meta:
+  rxdart:
 
 dev_dependencies:
   flutter_test:
