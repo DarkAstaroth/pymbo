@@ -23,7 +23,9 @@ class AuthenticationBloc
     if (event is LoggedIn) {
       yield* _mapLoggedInToState();
     }
-    if (event is LoggedOut) {}
+    if (event is LoggedOut) {
+      yield* _mapLoggedOutToState();
+    }
   }
 
   Stream<AuthenticationState> _mapAppEventToState() async* {
