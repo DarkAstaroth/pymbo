@@ -18,9 +18,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return SplashScreen(
-      seconds: 4,
+      seconds: 20,
+      imageBackground: AssetImage('assets/img/background.jpg'),
       navigateAfterSeconds: HomePage(),
-      loaderColor: Colors.red,
+      loaderColor: Colors.white,
       backgroundColor: Color(0xfff1faee),
       );
   }
