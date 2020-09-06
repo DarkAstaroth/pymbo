@@ -17,16 +17,6 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFF1FAEE),
-      appBar: AppBar(
-        title: Text(
-          'Bienvenido',
-          style: TextStyle(
-            color: Color(0xFF1D3557)
-          ),
-          ),
-        elevation: 0,
-        backgroundColor: Color(0xFFF1FAEE),
-        ),
       body: BlocProvider<LoginBloc>(
         create: (context) => LoginBloc(userRepository: _userRepository),
         child: LoginForm(userRepository: _userRepository),

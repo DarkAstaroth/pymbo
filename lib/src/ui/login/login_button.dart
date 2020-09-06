@@ -16,7 +16,8 @@ class LoginButton extends StatelessWidget {
         elevation: 0,
         onPressed: _onPressed,
         child: Text('Iniciar sesion',style: TextStyle(
-          color: Colors.white
+          color: Colors.white,
+          fontFamily: 'GilroyB'
         ),),
       ),
     );

@@ -14,7 +14,11 @@ class CreateAccountButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlatButton(
-      child: Text('Crear una cuenta'),
+      child: Text('Crear una cuenta',
+        style: TextStyle(
+          fontFamily: 'GilroyB',
+        ),
+      ),
       onPressed: (){
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context){

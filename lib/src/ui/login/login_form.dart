@@ -91,8 +91,22 @@ class _LoginFormState extends State<LoginForm> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Text('Bienvenido'),
-                        Text('Inicia Sesion para continuar')
+                        Container(
+                          height: 120,
+                          padding: EdgeInsets.all(20),
+                          child: Image(image: AssetImage('assets/img/user.png')),
+                        ),
+                        Text('Bienvenido',
+                          style: TextStyle(
+                            fontFamily: 'GilroyB',
+                            fontSize: 30,
+                            color: Color(0xFF1D3557)
+                          ),
+                        ),
+                        Text('Inicia Sesion para continuar',
+                        style: TextStyle(
+                          fontFamily: 'GilroyL'
+                        ))
                       ],
                     ),
                   )
@@ -114,6 +128,9 @@ class _LoginFormState extends State<LoginForm> {
                     child: Column(
                       children: <Widget>[
                         TextFormField(
+                          style: TextStyle(
+                            fontFamily: 'GilroyL'
+                          ),
                           controller: _emailController,
                           decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
@@ -121,9 +138,11 @@ class _LoginFormState extends State<LoginForm> {
                                     color: Color(0xFF1D3557), width: 2.0)),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)),
-                            hintText: 'Correo',
                             labelText: 'Correo',
-                            labelStyle: TextStyle(color: Color(0xFF1D3557)),
+                            labelStyle: TextStyle(
+                              color: Color(0xFF1D3557),
+                              fontFamily: 'GilroyB'
+                              ),
                             suffixIcon:
                                 Icon(Icons.email, color: Color(0xFF1D3557)),
                           ),
@@ -150,9 +169,11 @@ class _LoginFormState extends State<LoginForm> {
                             focusColor: Color(0xFF1D3557),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5.0)),
-                            hintText: 'Contraseña',
                             labelText: 'Contraseña',
-                            labelStyle: TextStyle(color: Color(0xFF1D3557)),
+                            labelStyle: TextStyle(
+                              color: Color(0xFF1D3557),
+                              fontFamily: 'GilroyB'
+                              ),
                             suffixIcon:
                                 Icon(Icons.lock, color: Color(0xFF1D3557)),
                           ),
