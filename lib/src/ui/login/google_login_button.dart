@@ -7,6 +7,7 @@ class GoogleLoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GoogleSignInButton(
+      text: 'Inicia sesión con Google',
       onPressed: (){
         Scaffold.of(context).showSnackBar(
           SnackBar(

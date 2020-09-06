@@ -53,7 +53,7 @@ class _LoginFormState extends State<LoginForm> {
             SnackBar(
               content: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text('Login Failure'), Icon(Icons.error)],
+                children: [Text('Fallo de inicio de sesión'), Icon(Icons.error)],
               ),
               backgroundColor: Colors.red,
             ),
@@ -66,7 +66,7 @@ class _LoginFormState extends State<LoginForm> {
             content: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text('Logging in... '),
+                Text('Iniciando sesión...'),
                 CircularProgressIndicator(),
               ],
             ),
@@ -89,32 +89,40 @@ class _LoginFormState extends State<LoginForm> {
                     height: 200,
                   ),
                 ),
-                TextFormField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    icon: Icon(Icons.email),
-                    labelText: 'Email'
-                  ),
-                  keyboardType: TextInputType.emailAddress,
-                  autovalidate: true,
-                  autocorrect: false,
-                  validator: (_){
-                    return !state.isEmailValid? 'Invalid Email': null;
-                  },
+                Container(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 20),
+                    child: Column(
+                    children: <Widget>[
+                      TextFormField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      labelText: 'Email'
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                    autovalidate: true,
+                    autocorrect: false,
+                    validator: (_){
+                      return !state.isEmailValid? 'Email Invalido': null;
+                    },
                 ),
                 TextFormField(
-                  controller: _passwordController,
-                  decoration: InputDecoration(
-                    icon: Icon(Icons.lock),
-                    labelText: 'Password'
-                  ),
-                  obscureText: true,
-                  autovalidate: true,
-                  autocorrect: false,
-                  validator: (_){
-                    return !state.isPasswordValid? 'Invalid Password': null;
-                  },
+                    
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                      labelText: 'Contraseña'
+                    ),
+                    obscureText: true,
+                    autovalidate: true,
+                    autocorrect: false,
+                    validator: (_){
+                      return !state.isPasswordValid? 'Contraseña Invalida': null;
+                    },
                 ),
+                    ],
+                ),
+                  ),),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 20),
                   child: Column(
@@ -122,15 +130,24 @@ class _LoginFormState extends State<LoginForm> {
                     children: <Widget>[
                       // Tres botones:
                       // LoginButton
-                      LoginButton(
-                        onPressed: isLoginButtonEnabled(state)
-                          ? _onFormSubmitted
-                          : null,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal:50.0,vertical: 5),
+                        child: LoginButton(
+                          onPressed: isLoginButtonEnabled(state)
+                            ? _onFormSubmitted
+                            : null,
+                        ),
                       ),
                       // GoogleLoginButton
-                      GoogleLoginButton(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 5),
+                        child: GoogleLoginButton(),
+                      ),
                       // CreateAccountButton
-                      CreateAccountButton(userRepository: _userRepository,),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: CreateAccountButton(userRepository: _userRepository,),
+                      ),
                     ],
                   ),
                 )
