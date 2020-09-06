@@ -8,14 +8,24 @@ class RegisterScreen extends StatelessWidget {
   final UserRepository _userRepository;
 
   RegisterScreen({Key key, @required UserRepository userRepository})
-    :assert(userRepository != null),
-    _userRepository = userRepository,
-    super(key: key);
+      : assert(userRepository != null),
+        _userRepository = userRepository,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Register'),),
+      backgroundColor: Color(0xFFF1FAEE),
+      appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Icon(Icons.arrow_back, color: Color(0xFFE63946)),
+        ),
+        elevation: 0,
+        backgroundColor: Color(0xFFF1FAEE),
+      ),
       body: Center(
         child: BlocProvider<RegisterBloc>(
           create: (context) => RegisterBloc(userRepository: _userRepository),

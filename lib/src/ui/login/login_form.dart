@@ -124,7 +124,7 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 30),
+                        horizontal: 20, vertical: 30),
                     child: Column(
                       children: <Widget>[
                         TextFormField(
