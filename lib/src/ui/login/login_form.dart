@@ -53,7 +53,10 @@ class _LoginFormState extends State<LoginForm> {
             SnackBar(
               content: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text('Fallo de inicio de sesión'), Icon(Icons.error)],
+                children: [
+                  Text('Fallo de inicio de sesión'),
+                  Icon(Icons.error)
+                ],
               ),
               backgroundColor: Colors.red,
             ),
@@ -84,45 +87,88 @@ class _LoginFormState extends State<LoginForm> {
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 20),
-                  child: Image.asset(
-                    'assets/code1.png',
-                    height: 200,
-                  ),
+                  child: Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text('Bienvenido'),
+                        Text('Inicia Sesion para continuar')
+                      ],
+                    ),
+                  )
                 ),
                 Container(
-                  color: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 20),
-                    child: Column(
-                    children: <Widget>[
-                      TextFormField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      labelText: 'Email'
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    autovalidate: true,
-                    autocorrect: false,
-                    validator: (_){
-                      return !state.isEmailValid? 'Email Invalido': null;
-                    },
-                ),
-                TextFormField(
-                    
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                      labelText: 'Contraseña'
-                    ),
-                    obscureText: true,
-                    autovalidate: true,
-                    autocorrect: false,
-                    validator: (_){
-                      return !state.isPasswordValid? 'Contraseña Invalida': null;
-                    },
-                ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    boxShadow: [
+                      new BoxShadow(
+                        color: Colors.grey[300],
+                        blurRadius: 10.0,
+                      ),
                     ],
+                    color: Colors.white,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 30),
+                    child: Column(
+                      children: <Widget>[
+                        TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color(0xFF1D3557), width: 2.0)),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
+                            hintText: 'Correo',
+                            labelText: 'Correo',
+                            labelStyle: TextStyle(color: Color(0xFF1D3557)),
+                            suffixIcon:
+                                Icon(Icons.email, color: Color(0xFF1D3557)),
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                          autovalidate: true,
+                          autocorrect: false,
+                          validator: (_) {
+                            return !state.isEmailValid
+                                ? 'Email Invalido'
+                                : null;
+                          },
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          controller: _passwordController,
+                          decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color(0xFF1D3557), width: 2.0)),
+                            hoverColor: Color(0xFF1D3557),
+                            fillColor: Color(0xFF1D3557),
+                            focusColor: Color(0xFF1D3557),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
+                            hintText: 'Contraseña',
+                            labelText: 'Contraseña',
+                            labelStyle: TextStyle(color: Color(0xFF1D3557)),
+                            suffixIcon:
+                                Icon(Icons.lock, color: Color(0xFF1D3557)),
+                          ),
+                          obscureText: true,
+                          autovalidate: true,
+                          autocorrect: false,
+                          validator: (_) {
+                            return !state.isPasswordValid
+                                ? 'Contraseña Invalida'
+                                : null;
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                  ),),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 20),
                   child: Column(
@@ -131,22 +177,26 @@ class _LoginFormState extends State<LoginForm> {
                       // Tres botones:
                       // LoginButton
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal:50.0,vertical: 5),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 50.0, vertical: 5),
                         child: LoginButton(
                           onPressed: isLoginButtonEnabled(state)
-                            ? _onFormSubmitted
-                            : null,
+                              ? _onFormSubmitted
+                              : null,
                         ),
                       ),
                       // GoogleLoginButton
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 5),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 50, vertical: 5),
                         child: GoogleLoginButton(),
                       ),
                       // CreateAccountButton
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: CreateAccountButton(userRepository: _userRepository,),
+                        child: CreateAccountButton(
+                          userRepository: _userRepository,
+                        ),
                       ),
                     ],
                   ),
@@ -175,11 +225,7 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void _onFormSubmitted() {
-    _loginBloc.add(
-      LoginWithCredentialsPressed(
-        email: _emailController.text,
-        password: _passwordController.text
-      )
-    );
+    _loginBloc.add(LoginWithCredentialsPressed(
+        email: _emailController.text, password: _passwordController.text));
   }
 }
