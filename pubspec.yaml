@@ -35,6 +35,7 @@ dependencies:
   meta:
   rxdart:
   flutter_auth_buttons:
+  splashscreen: ^1.2.0
 
 dev_dependencies:
   flutter_test:
