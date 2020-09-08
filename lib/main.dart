@@ -6,7 +6,7 @@ import 'package:pymbo/src/bloc/simple_bloc_delegate.dart';
 import 'package:pymbo/src/repository/user_repository.dart';
 import 'package:pymbo/src/ui/home_screen.dart';
 import 'package:pymbo/src/ui/login/login_screen.dart';
-import 'package:pymbo/src/ui/splash_screen.dart';
+import 'package:splashscreen/splashscreen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,11 +33,12 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+      home: SplashScreen(
+        seconds: 5,
+        loaderColor: Color(0XFFE63946),
+        imageBackground: AssetImage('assets/img/splash1.jpg'),
+        navigateAfterSeconds: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
-          if (state is Uninitialized) {
-            return SplashScreen();
-          }
           if (state is Authenticated) {
             return HomeScreen(name: state.displayName,);
           }
@@ -47,6 +48,7 @@ class App extends StatelessWidget {
           return Container();
         },
       ),
+        )
     );
   }
 }
