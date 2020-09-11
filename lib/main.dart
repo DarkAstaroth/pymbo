@@ -14,7 +14,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.dark
+    statusBarIconBrightness: Brightness.light
   ));
   BlocSupervisor.delegate = SimpleBlocDelegate();
 
@@ -47,7 +47,8 @@ class App extends StatelessWidget {
         navigateAfterSeconds: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state is Authenticated) {
-            return HomeScreen(name: state.displayName,);
+            // return HomeScreen(name: state.displayName,);
+            return HomeScreen();
           }
           if (state is UnAuthenticated) {
             return LoginScreen(userRepository: _userRepository,);
