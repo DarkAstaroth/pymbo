@@ -396,11 +396,10 @@ class _PrincipalScreenState extends State<PrincipalScreen> {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Positioned(
-                child: Container(
+            Container(
               width: 200,
               child: Image(image: AssetImage('assets/img/banner1.png')),
-            )),
+            ),
             Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Column(
