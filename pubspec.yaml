@@ -39,7 +39,7 @@ dependencies:
   google_nav_bar: ^3.0.0
   flutter_swiper: ^1.1.6
   flutter_page_indicator: ^0.0.3
-  flutter_statusbarcolor: ^0.2.3
+  fluttericon: ^1.0.7
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +73,9 @@ flutter:
     - family: GilroyL
       fonts:
         - asset: assets/fonts/Gilroy-L.otf
+    - family: Typicons
+      fonts:
+        - asset: assets/fonts/typicons.ttf    
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 

@@ -14,7 +14,6 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.light
   ));
   BlocSupervisor.delegate = SimpleBlocDelegate();
 
