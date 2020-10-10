@@ -1,12 +1,14 @@
-import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pymbo/src/bloc/authentication_bloc/bloc.dart';
+import 'package:pymbo/src/ui/setting/setting_header.dart';
+import 'package:pymbo/src/ui/setting/setting_options.dart';
 
 class SettingsScreen extends StatefulWidget {
-  final String photo;
+  final String userPhoto;
+  final String displayname;
+  final String email;
 
-  const SettingsScreen({Key key, this.photo}) : super(key: key);
+  const SettingsScreen({Key key, this.userPhoto, this.displayname, this.email})
+      : super(key: key);
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
@@ -16,35 +18,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0XFFF1FAEE),
-        body: Container(
-          width: double.infinity,
-          height: 200,
-          child: Stack(
-            children: [
-              Container(
-                width: double.infinity,
-                child: Image(
-                  image: AssetImage('assets/img/illimani.png'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  alignment: Alignment.center,
-                  width: 80,
-                  height: 80,
-                  child: CircularProfileAvatar(
-                    '',
-                    child: FlutterLogo(),
-                    radius: 80,
-                    borderColor: Color(0XFF1D3557),
-                    borderWidth: 3,
-                  ),
-                ),
-              )
-            ],
-          ),
+        body: Column(
+          children: [
+            SettingHeader(
+              userPhoto: widget.userPhoto,
+              displayname: widget.displayname,
+              email: widget.email,
+            ),
+            SettingOptions()
+          ],
         ));
   }
+
+
 }

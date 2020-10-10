@@ -47,7 +47,10 @@ class App extends StatelessWidget {
         builder: (context, state) {
           if (state is Authenticated) {
             // return HomeScreen(name: state.displayName,);
-            return HomeScreen();
+            return HomeScreen(
+              userPhoto:state.userPhoto,
+              displayName: state.displayName,
+              email:state.email);
           }
           if (state is UnAuthenticated) {
             return LoginScreen(userRepository: _userRepository,);

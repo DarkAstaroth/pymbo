@@ -15,10 +15,12 @@ class Uninitialized extends AuthenticationState {
 
 class Authenticated extends AuthenticationState {
   final String displayName;
-  const Authenticated(this.displayName);
+  final String userPhoto;
+   final String email;
+  const Authenticated(this.displayName, this.userPhoto, this.email);
 
   @override
-  List<Object> get props => [displayName];
+  List<Object> get props => [displayName,userPhoto];
   @override
   String toString() => 'Autenticado -displayName:$displayName';
 }

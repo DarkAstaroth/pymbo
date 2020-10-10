@@ -37,7 +37,7 @@ class _PrincipalScreenState extends State<PrincipalScreen> {
           children: [
             Container(
               padding: EdgeInsets.all(0),
-              height: 200,
+              height: 180,
               color: Colors.red,
               child: swiperBanner(context),
             ),
