@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_page_indicator/flutter_page_indicator.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:fluttericon/typicons_icons.dart';
+import 'package:pymbo/src/ui/search/card_search.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -24,9 +26,7 @@ class _SearchScreenState extends State<SearchScreen> {
               child: Stack(
                 children: [
                   Column(
-                    children: [
-                      headerSearch(), 
-                      swiperCards()],
+                    children: [headerSearch(), swiperCards()],
                   ),
                 ],
               ),
@@ -79,73 +79,12 @@ class _SearchScreenState extends State<SearchScreen> {
       children: [
         Container(
           width: double.infinity,
-          height: 400,
+          height: 420,
           //color: Colors.white,
-          child: cardsSearch(),
+          child: CardSearch(),
         )
       ],
     ));
   }
 
-  Widget cardsSearch() {
-    return Swiper(
-      itemBuilder: (BuildContext context, int index) {
-        return Container(
-          color: Colors.white,
-          child: Column(
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: 180,
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage("assets/img/yuriña1.jpg"))),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      alignment: Alignment.center,
-                      margin: EdgeInsets.only(top: 140),
-                      height: 75,
-                      width: 75,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage("assets/img/yuriña2.jpg")),
-                          color: Colors.red,
-                          shape: BoxShape.circle),
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Column(
-                children: [
-                  Text(
-                    "Yuriña",
-                    style: TextStyle(
-                      fontFamily: 'GilroyB',
-                      fontSize: 20
-                    ),
-                    )
-                ],
-              )
-            ],
-          ),
-        );
-      },
-      indicatorLayout: PageIndicatorLayout.COLOR,
-      itemCount: 10,
-      //pagination: new SwiperPagination(),
-      autoplay: true,
-      loop: true,
-      viewportFraction: 0.8,
-      scale: 0.9,
-    );
-  }
 }
