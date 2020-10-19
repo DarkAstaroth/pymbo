@@ -79,7 +79,7 @@ class _SettingOptionsState extends State<SettingOptions> {
         color: Color(0XFF1D3557),
       ),
       onTap: () {
-        BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
+        //BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
       },
     );
   }

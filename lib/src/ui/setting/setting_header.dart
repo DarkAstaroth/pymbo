@@ -13,7 +13,7 @@ class SettingHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Container(
               width: double.infinity,
-              height: 200,
+              height: 300,
               child: Stack(
                 children: [
                   Container(
@@ -50,10 +50,70 @@ class SettingHeader extends StatelessWidget {
                         Text(
                           email,
                           style: TextStyle(fontFamily: 'GilroyL'),
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 80,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 15),
+                            child: RaisedButton(
+                              child: Container(
+                                child: Row(
+                                  children: [
+                                   Padding(
+                                     padding: EdgeInsets.all(10),
+                                     child:  Image.asset("assets/img/store.png"),
+                                   ),
+                                    Text(
+                                      "Mi negocio",
+                                      style: TextStyle(
+                                        fontFamily: "GilroyB",
+                                        fontSize: 15
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              onPressed: (){
+                                Navigator.of(context).pushNamed('/mi_negocio');
+                              }
+                              ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 15),
+                            child: RaisedButton(
+                              child: Container(
+                                child: Row(
+                                  children: [
+                                   Padding(
+                                     padding: EdgeInsets.all(10),
+                                     child:  Image.asset("assets/img/favorito.png"),
+                                   ),
+                                    Text(
+                                      "Mis favoritos",
+                                      style: TextStyle(
+                                        fontFamily: "GilroyB",
+                                        fontSize: 15
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              onPressed: (){
+                                Navigator.of(context).pushNamed('/favoritos');
+                              }
+                              ),
+                          )
+                            ],
+                          )
                         )
                       ],
                     ),
-                  )
+                  ),
+                  
                 ],
               ),
             );

@@ -6,15 +6,20 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:pymbo/src/bloc/authentication_bloc/bloc.dart';
 import 'package:pymbo/src/service/admod_service.dart';
 import 'package:pymbo/src/ui/favorite/favorite_screen.dart';
+import 'package:pymbo/src/ui/negocio/mi_negocio.dart';
+import 'package:pymbo/src/ui/ofertas/ofertas_screen.dart';
 import 'package:pymbo/src/ui/principal/principal_screen.dart';
 import 'package:pymbo/src/ui/search/search_screen.dart';
 import 'package:pymbo/src/ui/setting/setting_screen.dart';
+
+import 'eventos/event_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final String userPhoto;
   final String displayName;
   final String email;
-  HomeScreen({Key key, this.userPhoto, this.displayName, this.email}) : super(key: key);
+  HomeScreen({Key key, this.userPhoto, this.displayName, this.email})
+      : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -26,23 +31,25 @@ class _HomeScreenState extends State<HomeScreen> {
   final ams = AdmodService();
 
   int _selectedIndex = 0;
- 
 
-@override
+  @override
   void initState() {
     super.initState();
     Admob.initialize(ams.getAppId());
   }
+
   @override
   Widget build(BuildContext context) {
-
-     final List<Widget> _widgetOptions = <Widget>[
-    PrincipalScreen(),
-    SearchScreen(),
-    FavoriteScreen(),
-    FavoriteScreen(),
-    SettingsScreen(userPhoto: widget.userPhoto,displayname: widget.displayName,email:widget.email),
-  ];
+    final List<Widget> _widgetOptions = <Widget>[
+      PrincipalScreen(),
+      SearchScreen(),
+      OfertaScreen(),
+      EventScreen(),
+      SettingsScreen(
+          userPhoto: widget.userPhoto,
+          displayname: widget.displayName,
+          email: widget.email),
+    ];
 
     return Scaffold(
       body: Center(
@@ -57,7 +64,8 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
                 child: GNav(
                     gap: 10,
                     activeColor: Colors.white,
@@ -70,10 +78,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           Color(0XFFE63946)),
                       buttonNavBar('Buscar', Icons.search, Color(0XFF1D3557),
                           Color(0XFFE63946)),
-                      buttonNavBar('Favoritos', Icons.favorite, Color(0XFF1D3557),
+                      buttonNavBar('Ofertas', Typicons.tags, Color(0XFF1D3557),
                           Color(0XFFE63946)),
-                      buttonNavBar('Mi negocio', Typicons.tags, Color(0XFF1D3557),
-                          Color(0XFFE63946)),
+                      buttonNavBar('Eventos', Typicons.calendar,
+                          Color(0XFF1D3557), Color(0XFFE63946)),
                       buttonNavBar('Ajustes', Icons.settings, Color(0XFF1D3557),
                           Color(0XFFE63946)),
                     ],
@@ -84,7 +92,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       });
                     }),
               ),
-              AdmobBanner(adUnitId: ams.getBannerAdUnitId(), adSize: AdmobBannerSize.FULL_BANNER)
+              AdmobBanner(
+                  adUnitId: ams.getBannerAdUnitId(),
+                  adSize: AdmobBannerSize.FULL_BANNER)
             ],
           ),
         ),
@@ -98,10 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
       icon: icon,
       iconColor: iconColor,
       text: text,
-      textStyle: TextStyle(
-        fontFamily: 'GilroyB',
-        color: Colors.white
-      ),
+      textStyle: TextStyle(fontFamily: 'GilroyB', color: Colors.white),
       backgroundColor: bgColor,
     );
   }

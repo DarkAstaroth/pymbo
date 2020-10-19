@@ -17,23 +17,30 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0XFFFF1FAEE),
-        body: SafeArea(
-            child: Column(
+        appBar: AppBar(
+          title: Text(
+            "Mis favoritos",
+            style: TextStyle(
+                color: Color(0XFF1D3557), fontFamily: 'GilroyB', fontSize: 20),
+          ),
+          leading: IconButton(
+              color: Color(0XFF1D3557),
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pop(context);
+              }),
+          elevation: 0,
+          backgroundColor: Color(0XFFF1FAEE),
+        ),
+        body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: EdgeInsets.only(top: 20, left: 20, bottom: 20),
-              child: Text(
-                "Mis favoritos",
-                style: TextStyle(fontFamily: 'GilroyB', fontSize: 25),
-              ),
-            ),
             Expanded(
                 child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: listaFavoritos(items)))
           ],
-        )));
+        ));
   }
 
   Widget listaFavoritos(int items) {
@@ -44,10 +51,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           Image.asset("assets/img/favorite-page.png"),
           Text(
             "No tienes favoritos",
-            style: TextStyle(
-              fontFamily: 'GilroyB'
-            ),
-            )
+            style: TextStyle(fontFamily: 'GilroyB'),
+          )
         ],
       );
     } else {
