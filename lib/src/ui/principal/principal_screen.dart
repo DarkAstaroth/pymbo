@@ -17,9 +17,10 @@ class _PrincipalScreenState extends State<PrincipalScreen> {
   final ams = AdmodService();
 
   List<dynamic> images =[
-     AssetImage('assets/img/slide1.jpg'),
-      AssetImage('assets/img/slide2.jpg'),
-       AssetImage('assets/img/slide3.jpg'),
+     NetworkImage('https://firebasestorage.googleapis.com/v0/b/pymbo-4e8d4.appspot.com/o/BannerHome%2Fslide1.jpg?alt=media&token=af7bf6ca-58f7-4f97-9e74-8360234eaf7f'),
+     NetworkImage('https://firebasestorage.googleapis.com/v0/b/pymbo-4e8d4.appspot.com/o/BannerHome%2Fslide2.jpg?alt=media&token=7567cbbe-a159-4b69-a0cd-6b64b6a67bbf'),
+     NetworkImage('https://firebasestorage.googleapis.com/v0/b/pymbo-4e8d4.appspot.com/o/BannerHome%2Fslide3.jpg?alt=media&token=3478257a-cde5-4503-a330-5ea2e39df6c5')
+
   ];
 
   @override
@@ -38,7 +39,6 @@ class _PrincipalScreenState extends State<PrincipalScreen> {
             Container(
               padding: EdgeInsets.all(0),
               height: 180,
-              color: Colors.red,
               child: swiperBanner(context),
             ),
             Expanded(
@@ -75,7 +75,7 @@ class _PrincipalScreenState extends State<PrincipalScreen> {
       itemBuilder: (BuildContext context, int index) {
         return ClipRect(
           child: FadeInImage(
-            placeholder: AssetImage('assets/img/slide1.jpg'),
+            placeholder: AssetImage('assets/img/load-app-render.gif'),
             image:images[index],
             fit: BoxFit.cover,
           ),
