@@ -9,6 +9,7 @@ import 'package:pymbo/src/ui/favorite/favorite_screen.dart';
 import 'package:pymbo/src/ui/home_screen.dart';
 import 'package:pymbo/src/ui/login/login_screen.dart';
 import 'package:pymbo/src/ui/negocio/mi_negocio.dart';
+import 'package:pymbo/src/ui/negocio/perfil_negocio.dart';
 import 'package:splashscreen/splashscreen.dart';
 
 void main() {
@@ -41,6 +42,7 @@ class App extends StatelessWidget {
         routes: <String, WidgetBuilder>{
           '/favoritos': (BuildContext context) => new FavoriteScreen(),
           '/mi_negocio': (BuildContext context) => new MiNegocio(),
+          '/perfil-negocio': (BuildContext context) => new PerfilNegocio(),
         },
         home: SplashScreen(
           seconds: 5,
