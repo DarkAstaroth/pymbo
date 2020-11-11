@@ -52,11 +52,7 @@ class App extends StatelessWidget {
               BlocBuilder<AuthenticationBloc, AuthenticationState>(
             builder: (context, state) {
               if (state is Authenticated) {
-                // return HomeScreen(name: state.displayName,);
-                return HomeScreen(
-                    userPhoto: state.userPhoto,
-                    displayName: state.displayName,
-                    email: state.email);
+                return HomeScreen();
               }
               if (state is UnAuthenticated) {
                 return LoginScreen(

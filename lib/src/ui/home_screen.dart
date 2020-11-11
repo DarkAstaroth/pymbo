@@ -1,12 +1,8 @@
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttericon/typicons_icons.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:pymbo/src/bloc/authentication_bloc/bloc.dart';
 import 'package:pymbo/src/service/admod_service.dart';
-import 'package:pymbo/src/ui/favorite/favorite_screen.dart';
-import 'package:pymbo/src/ui/negocio/mi_negocio.dart';
 import 'package:pymbo/src/ui/ofertas/ofertas_screen.dart';
 import 'package:pymbo/src/ui/principal/principal_screen.dart';
 import 'package:pymbo/src/ui/search/search_screen.dart';
@@ -15,12 +11,6 @@ import 'package:pymbo/src/ui/setting/setting_screen.dart';
 import 'eventos/event_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  final String userPhoto;
-  final String displayName;
-  final String email;
-  HomeScreen({Key key, this.userPhoto, this.displayName, this.email})
-      : super(key: key);
-
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -45,10 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
       SearchScreen(),
       OfertaScreen(),
       EventScreen(),
-      SettingsScreen(
-          userPhoto: widget.userPhoto,
-          displayname: widget.displayName,
-          email: widget.email),
+      SettingsScreen(),
     ];
 
     return Scaffold(
