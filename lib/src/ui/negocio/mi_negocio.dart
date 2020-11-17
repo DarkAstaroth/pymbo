@@ -1,9 +1,7 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:fluttericon/typicons_icons.dart';
+import 'package:pymbo/src/ui/negocio/negocio_home_settings.dart';
 
-import 'negocio_list.dart';
 
 class MiNegocio extends StatefulWidget {
   @override
@@ -35,11 +33,11 @@ class _MiNegocioState extends State<MiNegocio> {
           }
         ),
       ),
-      body: NegocioList(),
+      body: NegocioHomeSettings(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: (){
-          Navigator.of(context).pushNamed('/perfil-negocio');
+          Navigator.of(context).pushNamed('/add-perfil-negocio');
         }
         ),
     );

@@ -3,14 +3,17 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bloc/bloc.dart';
 import 'package:pymbo/src/bloc/authentication_bloc/bloc.dart';
+import 'package:pymbo/src/bloc/negocio_bloc/negocio_bloc.dart';
 import 'package:pymbo/src/bloc/simple_bloc_delegate.dart';
+import 'package:pymbo/src/repository/negocio_repository.dart';
 import 'package:pymbo/src/repository/user_repository.dart';
 import 'package:pymbo/src/ui/favorite/favorite_screen.dart';
 import 'package:pymbo/src/ui/home_screen.dart';
 import 'package:pymbo/src/ui/login/login_screen.dart';
 import 'package:pymbo/src/ui/negocio/mi_negocio.dart';
-import 'package:pymbo/src/ui/negocio/perfil_negocio.dart';
+import 'package:pymbo/src/ui/negocio/crear_perfil_negocio.dart';
 import 'package:splashscreen/splashscreen.dart';
+import 'package:pymbo/src/bloc/negocio_bloc/negocio_event.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,11 +23,21 @@ void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
 
   final UserRepository userRepository = UserRepository();
-  runApp(BlocProvider(
-    create: (context) =>
-        AuthenticationBloc(userRepository: userRepository)..add(AppStarted()),
-    child: App(userRepository: userRepository),
-  ));
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => 
+            AuthenticationBloc(userRepository: userRepository)..add(AppStarted()),
+        ),
+        BlocProvider<NegocioBloc>(
+          create: (context) => 
+            NegocioBloc(negocioRepository: NegocioRepository())..add(LoadNegocio()),
+        ),
+      ],
+      child: App(userRepository: userRepository),
+    )
+  );
 }
 
 class App extends StatelessWidget {
@@ -42,7 +55,11 @@ class App extends StatelessWidget {
         routes: <String, WidgetBuilder>{
           '/favoritos': (BuildContext context) => new FavoriteScreen(),
           '/mi_negocio': (BuildContext context) => new MiNegocio(),
-          '/perfil-negocio': (BuildContext context) => new PerfilNegocio(),
+          '/add-perfil-negocio': (BuildContext context) => new CrearPerfilNegocio(
+            onSave: (image,nombre,email){
+              BlocProvider.of<NegocioBloc>(context).add(AddNegocio(image, nombre, email));
+            },
+          ),
         },
         home: SplashScreen(
           seconds: 5,

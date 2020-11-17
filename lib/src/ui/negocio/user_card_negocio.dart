@@ -1,11 +1,15 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
-class UserCardNegocio extends StatefulWidget {
-  @override
-  _UserCardNegocioState createState() => _UserCardNegocioState();
-}
+class UserCardNegocio extends StatelessWidget {
 
-class _UserCardNegocioState extends State<UserCardNegocio> {
+  final String nombre;
+  final String email;
+
+  const UserCardNegocio(this.nombre, this.email, ) ;
+
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,6 +38,7 @@ class _UserCardNegocioState extends State<UserCardNegocio> {
                     width: 70,
                     height: 70,
                     color: Colors.green,
+                    //child: Image.network(image),
                   ),
                   Expanded(
                     child: Padding(
@@ -42,12 +47,12 @@ class _UserCardNegocioState extends State<UserCardNegocio> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Yuriña",
+                            nombre,
                             style:
                                 TextStyle(fontFamily: 'GilroyB', fontSize: 20),
                           ),
                           Text(
-                            "Calle Juan Pablo II Edif El ceibo el Alto of 207",
+                            email,
                             style:
                                 TextStyle(fontFamily: 'GilroyL', fontSize: 10),
                           ),
