@@ -56,8 +56,8 @@ class App extends StatelessWidget {
           '/favoritos': (BuildContext context) => new FavoriteScreen(),
           '/mi_negocio': (BuildContext context) => new MiNegocio(),
           '/add-perfil-negocio': (BuildContext context) => new CrearPerfilNegocio(
-            onSave: (image,nombre,email){
-              BlocProvider.of<NegocioBloc>(context).add(AddNegocio(image, nombre, email));
+            onSave: (portadaImage,nombre,email){
+              BlocProvider.of<NegocioBloc>(context).add(AddNegocio(portadaImage, nombre, email));
             },
           ),
         },

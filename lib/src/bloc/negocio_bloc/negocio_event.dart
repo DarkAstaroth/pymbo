@@ -12,14 +12,14 @@ abstract class NegocioEvent extends Equatable {
 class LoadNegocio extends NegocioEvent{}
 
 class AddNegocio extends NegocioEvent{
-  final File image;
+  final File portadaImage;
   final String nombre;
   final String email;
 
-  const AddNegocio(this.image, this.nombre, this.email);
+  const AddNegocio(this.portadaImage, this.nombre, this.email);
 
   @override
-  List<Object> get props => [image,nombre,email];
+  List<Object> get props => [portadaImage,nombre,email];
 
   @override
   String toString()=> 'Adding Negocio';

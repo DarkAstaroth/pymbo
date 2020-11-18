@@ -47,7 +47,7 @@ class NegocioBloc extends Bloc<NegocioEvent,NegocioState>{
   }
 
   Stream<NegocioState> _mapAddNegocioToState(AddNegocio event) async*{
-    await _negocioRepository.putNegocios(event.image, event.nombre, event.email);
+    await _negocioRepository.putNegocios(event.portadaImage, event.nombre, event.email);
   }
 
   Stream<NegocioState> _mapNegocioUpdatedToState(NegocioUpdated event) async*{
