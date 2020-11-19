@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pymbo/src/bloc/negocio_bloc/negocio_event.dart';
 import 'package:pymbo/src/bloc/negocio_bloc/negocio_state.dart';
-import 'package:pymbo/src/models/negocio_model.dart';
 import 'package:pymbo/src/repository/negocio_repository.dart';
 
 class NegocioBloc extends Bloc<NegocioEvent,NegocioState>{
@@ -47,7 +46,18 @@ class NegocioBloc extends Bloc<NegocioEvent,NegocioState>{
   }
 
   Stream<NegocioState> _mapAddNegocioToState(AddNegocio event) async*{
-    await _negocioRepository.putNegocios(event.portadaImage, event.nombre, event.email);
+    await _negocioRepository.putNegocios(
+    event.profileImage, 
+    event.portadaImage, 
+    event.nombre, 
+    event.descCorta, 
+    event.descLarga, 
+    event.categoria, 
+    event.subCategoria, 
+    event.direccion, 
+    event.telefono,
+    event.email,
+      );
   }
 
   Stream<NegocioState> _mapNegocioUpdatedToState(NegocioUpdated event) async*{

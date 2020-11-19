@@ -23,21 +23,19 @@ void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
 
   final UserRepository userRepository = UserRepository();
-  runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => 
-            AuthenticationBloc(userRepository: userRepository)..add(AppStarted()),
-        ),
-        BlocProvider<NegocioBloc>(
-          create: (context) => 
-            NegocioBloc(negocioRepository: NegocioRepository())..add(LoadNegocio()),
-        ),
-      ],
-      child: App(userRepository: userRepository),
-    )
-  );
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider(
+        create: (context) => AuthenticationBloc(userRepository: userRepository)
+          ..add(AppStarted()),
+      ),
+      BlocProvider<NegocioBloc>(
+        create: (context) => NegocioBloc(negocioRepository: NegocioRepository())
+          ..add(LoadNegocio()),
+      ),
+    ],
+    child: App(userRepository: userRepository),
+  ));
 }
 
 class App extends StatelessWidget {
@@ -55,11 +53,31 @@ class App extends StatelessWidget {
         routes: <String, WidgetBuilder>{
           '/favoritos': (BuildContext context) => new FavoriteScreen(),
           '/mi_negocio': (BuildContext context) => new MiNegocio(),
-          '/add-perfil-negocio': (BuildContext context) => new CrearPerfilNegocio(
-            onSave: (portadaImage,nombre,email){
-              BlocProvider.of<NegocioBloc>(context).add(AddNegocio(portadaImage, nombre, email));
-            },
-          ),
+          '/add-perfil-negocio': (BuildContext context) =>
+              new CrearPerfilNegocio(
+                onSave: (portadaImage,
+                    profileImage,
+                    nombre,
+                    descCorta,
+                    descLarga,
+                    categoria,
+                    subCategoria,
+                    direccion,
+                    telefono,
+                    email) {
+                  BlocProvider.of<NegocioBloc>(context).add(AddNegocio(
+                      portadaImage,
+                      profileImage,
+                      nombre,
+                      descCorta,
+                      descLarga,
+                      categoria,
+                      subCategoria,
+                      direccion,
+                      telefono,
+                      email));
+                },
+              ),
         },
         home: SplashScreen(
           seconds: 5,

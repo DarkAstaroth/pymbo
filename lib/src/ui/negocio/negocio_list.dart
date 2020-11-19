@@ -41,9 +41,9 @@ class _NegocioListState extends State<NegocioList> {
                     itemCount: negocioList.length,
                     itemBuilder: (_, int index) {
                     return UserCardNegocio(
-                      negocioList[index].portadaImage,
+                      negocioList[index].profileImage,
                       negocioList[index].nombre,
-                      negocioList[index].email
+                      negocioList[index].direccion
                     );
                    },
                   ),
