@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pymbo/src/ui/negocio/formulario_negocio.dart';
 
-typedef OnSaveCallback = Function(File image, String nombre, String descripcion);
+typedef OnSaveCallback = Function(File portadaImage, String nombre, String descripcion);
 
 class CrearPerfilNegocio extends StatefulWidget {
   final OnSaveCallback onSave;

@@ -15,13 +15,13 @@ class NegocioRepository{
       });
   }
 
-  Future<void> putNegocios(File image,String nombre,String email)async{
+  Future<void> putNegocios(File portadaImage,String nombre,String email)async{
 
     // Save image
 
     final StorageReference negocioImageRef = FirebaseStorage.instance.ref().child("Negocio Image");
     var timeKey = DateTime.now();
-    final StorageUploadTask uploadTask = negocioImageRef.child(timeKey.toString() + ".jpg").putFile(image);
+    final StorageUploadTask uploadTask = negocioImageRef.child(timeKey.toString() + ".jpg").putFile(portadaImage);
     var imageURL = await (await uploadTask.onComplete).ref.getDownloadURL();
     var url= imageURL.toString();
 
@@ -35,7 +35,7 @@ class NegocioRepository{
 
     dataBaseReference.document().setData(
       {
-        'image' : url,
+        'portadaImage' : url,
         'nombre' : nombre,
         'email' : email,
         'date' : date,

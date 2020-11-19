@@ -56,7 +56,6 @@ class NegocioBloc extends Bloc<NegocioEvent,NegocioState>{
 
   @override
   Future<void> close() {
-    
     _negocioSubscription?.cancel();
     return super.close();
   }

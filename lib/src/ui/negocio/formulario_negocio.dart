@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-typedef OnSaveCallback = Function(File image,String nombre,String descripcion);
+typedef OnSaveCallback = Function(File portadaImage,String nombre,String descripcion);
 
 class FormularioNegocio extends StatefulWidget {
   final File samplePoI;
