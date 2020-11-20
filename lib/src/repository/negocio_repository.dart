@@ -26,7 +26,9 @@ class NegocioRepository {
       String subCategoria,
       String direccion,
       String telefono,
-      String email
+      String email,
+      String lat,
+      String lng
       ) async {
     // Save portada image
 
@@ -70,6 +72,8 @@ class NegocioRepository {
       'direccion': direccion,
       'telefono': telefono,
       'email': email,
+      'lat': lat,
+      'lng': lng,
       'date': date,
       'time': time
     });

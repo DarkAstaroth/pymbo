@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_place_picker/google_maps_place_picker.dart';
 import 'package:smart_select/smart_select.dart';
 
 typedef OnSaveCallback = Function(
@@ -13,7 +15,10 @@ typedef OnSaveCallback = Function(
     String subCategoria,
     String direccion,
     String telefono,
-    String email);
+    String email,
+    String lat,
+    String lng
+    );
 
 class FormularioNegocio extends StatefulWidget {
   final File samplePoI;
@@ -23,6 +28,7 @@ class FormularioNegocio extends StatefulWidget {
       {Key key, this.samplePoI, this.onSaveCall, this.sampleProI})
       : super(key: key);
 
+  static final kInitialPosition = LatLng(-16.4959955, -68.133416);
   @override
   _FormularioNegocioState createState() => _FormularioNegocioState();
 }
@@ -36,25 +42,28 @@ class _FormularioNegocioState extends State<FormularioNegocio> {
   String direccion;
   String telefono;
   String email;
+  String lat;
+  String lng;
 
-String value = 'flutter';
-List<S2Choice<String>> options = [
-  S2Choice<String>(value: 'ion', title: 'Ionic'),
-  S2Choice<String>(value: 'flu', title: 'Flutter'),
-  S2Choice<String>(value: 'rea', title: 'React Native'),
-];
+  String value = 'flutter';
+  List<S2Choice<String>> options = [
+    S2Choice<String>(value: 'ion', title: 'Ionic'),
+    S2Choice<String>(value: 'flu', title: 'Flutter'),
+    S2Choice<String>(value: 'rea', title: 'React Native'),
+  ];
 
-String value2 = 'flutter';
-List<S2Choice<String>> options2 = [
-  S2Choice<String>(value: 'ion', title: 'Ionic'),
-  S2Choice<String>(value: 'flu', title: 'Flutter'),
-  S2Choice<String>(value: 'rea', title: 'React Native'),
-];
+  String value2 = 'flutter';
+  List<S2Choice<String>> options2 = [
+    S2Choice<String>(value: 'ion', title: 'Ionic'),
+    S2Choice<String>(value: 'flu', title: 'Flutter'),
+    S2Choice<String>(value: 'rea', title: 'React Native'),
+  ];
 
   final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    PickResult selectedPlace;
     return Form(
       key: formKey,
       child: Column(
@@ -129,92 +138,99 @@ List<S2Choice<String>> options2 = [
               },
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: TextFormField(
-          //     style: TextStyle(fontFamily: 'GilroyL'),
-          //     decoration: InputDecoration(
-          //       focusedBorder: OutlineInputBorder(
-          //           borderSide:
-          //               BorderSide(color: Color(0xFF1D3557), width: 2.0)),
-          //       border: OutlineInputBorder(
-          //           borderRadius: BorderRadius.circular(5.0)),
-          //       labelText: 'Categoria',
-          //       labelStyle:
-          //           TextStyle(color: Color(0xFF1D3557), fontFamily: 'GilroyB'),
-          //       //suffixIcon: Icon(Icons.email, color: Color(0xFF1D3557)),
-          //     ),
-          //     keyboardType: TextInputType.emailAddress,
-          //     autovalidate: true,
-          //     autocorrect: true,
-          //     onSaved: (value) {
-          //       return categoria = value;
-          //     },
-          //   ),
-          // ),
           Padding(
-            padding: EdgeInsets.all(8),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.0),
-                border: Border.all(
-                  color: Colors.grey,
-                  width: 1
-                )
-              ),
-              child: SmartSelect.single(
-                choiceConfig: S2ChoiceConfig(
-                  style: S2ChoiceStyle(
-                    titleStyle: TextStyle(
-                      fontFamily: 'GilroyB'
-                    )
-                  )
+              padding: EdgeInsets.all(8),
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    border: Border.all(color: Colors.grey, width: 1)),
+                child: SmartSelect.single(
+                  choiceConfig: S2ChoiceConfig(
+                      style: S2ChoiceStyle(
+                          titleStyle: TextStyle(fontFamily: 'GilroyB'))),
+                  title: 'Categoria',
+                  placeholder: 'Elije una opcion',
+                  value: value,
+                  choiceItems: options,
+                  onChange: (state) {
+                    setState(() {
+                      value = state.value;
+                      categoria = value;
+                    });
+                  },
                 ),
-              title: 'Categoria',
-              placeholder: 'Elije una opcion',
-              value: value,
-              choiceItems: options,
-              onChange: (state) {
-                setState(() {
-                value = state.value;
-                categoria = value;
-                });
-              },
-              
-            ),
-            )
-          ),
+              )),
           Padding(
-            padding: EdgeInsets.all(8),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.0),
-                border: Border.all(
-                  color: Colors.grey,
-                  width: 1
-                )
-              ),
-              child: SmartSelect.single(
-                choiceConfig: S2ChoiceConfig(
-                  style: S2ChoiceStyle(
-                    titleStyle: TextStyle(
-                      fontFamily: 'GilroyB'
-                    )
-                  )
+              padding: EdgeInsets.all(8),
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    border: Border.all(color: Colors.grey, width: 1)),
+                child: SmartSelect.single(
+                  choiceConfig: S2ChoiceConfig(
+                      style: S2ChoiceStyle(
+                          titleStyle: TextStyle(fontFamily: 'GilroyB'))),
+                  title: 'Sub - Categoria',
+                  placeholder: 'Elije una opcion',
+                  value: value2,
+                  choiceItems: options,
+                  onChange: (state) {
+                    setState(() {
+                      value2 = state.value;
+                      subCategoria = value2;
+                    });
+                  },
                 ),
-              title: 'Sub - Categoria',
-              placeholder: 'Elije una opcion',
-              value: value2,
-              choiceItems: options,
-              onChange: (state) {
-                setState(() {
-                value2 = state.value;
-                subCategoria = value2;
-                });
-              },
-              
+              )),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ButtonTheme(
+              minWidth: double.infinity,
+              height: 45,
+              child: RaisedButton(
+                color: lat == null ? Color(0XFF1D3557): Colors.green,
+                elevation: 0,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PlacePicker(
+                        apiKey:'AIzaSyBT8n7fuyXsn6Vjwfvc-mkOWzcgaeAUmMs', // Put YOUR OWN KEY here.
+                        onPlacePicked: (result) {
+                          selectedPlace = result;
+                          lat = selectedPlace.geometry.location.lat.toString();
+                          lng = selectedPlace.geometry.location.lng.toString();
+                          setState(() {});
+                          Navigator.of(context).pop();
+                        },
+                        initialPosition: FormularioNegocio.kInitialPosition,
+                        useCurrentLocation: true,
+                      ),
+                    ),
+                  );
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    lat == null 
+                    ?
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Icon(Icons.map,color: Colors.white,),
+                    )
+                    :
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Icon(Icons.check_circle,color: Colors.white,),
+                    ),
+                    Text(
+                      lat == null? 'Seleccinar Mapa' : 'Ubicacion seleccionada',
+                      style: TextStyle(color: Colors.white, fontFamily: 'GilroyB'),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            )
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -288,6 +304,7 @@ List<S2Choice<String>> options2 = [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ButtonTheme(
+              minWidth: double.infinity,
               height: 45,
               child: RaisedButton(
                 color: Color(0xFFE63946),
@@ -308,8 +325,9 @@ List<S2Choice<String>> options2 = [
   void uploadNegocio() async {
     if (validateAndSave()) {
       widget.onSaveCall(widget.samplePoI, widget.sampleProI, nombre, descCorta,
-          descLarga, categoria, subCategoria, direccion, telefono, email);
-      Navigator.pop(context,SnackBar(content: Text("Negocio Registrado ! Cargando datos")));
+          descLarga, categoria, subCategoria, direccion, telefono, email,lat,lng);
+      Navigator.pop(context,
+          SnackBar(content: Text("Negocio Registrado ! Cargando datos")));
     }
   }
 

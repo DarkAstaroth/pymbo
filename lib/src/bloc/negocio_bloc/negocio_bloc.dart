@@ -57,6 +57,8 @@ class NegocioBloc extends Bloc<NegocioEvent,NegocioState>{
     event.direccion, 
     event.telefono,
     event.email,
+    event.lat,
+    event.lng
       );
   }
 

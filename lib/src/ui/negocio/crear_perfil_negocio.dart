@@ -15,7 +15,9 @@ typedef OnSaveCallback = Function(
       String subCategoria,
       String direccion,
       String telefono,
-      String email
+      String email,
+      String lat,
+      String lng
   );
 
 class CrearPerfilNegocio extends StatefulWidget {

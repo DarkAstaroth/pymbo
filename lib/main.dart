@@ -64,7 +64,10 @@ class App extends StatelessWidget {
                     subCategoria,
                     direccion,
                     telefono,
-                    email) {
+                    email,
+                    lat,
+                    lng
+                    ) {
                   BlocProvider.of<NegocioBloc>(context).add(AddNegocio(
                       portadaImage,
                       profileImage,
@@ -75,7 +78,10 @@ class App extends StatelessWidget {
                       subCategoria,
                       direccion,
                       telefono,
-                      email));
+                      email,
+                      lat,
+                      lng
+                      ));
                 },
               ),
         },

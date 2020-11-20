@@ -11,6 +11,8 @@ class Negocio {
   final String direccion;
   final String telefono;
   final String email;
+  final String lat;
+  final String lng; 
 
   const Negocio(
       this.profileImage,
@@ -22,7 +24,10 @@ class Negocio {
       this.subCategoria,
       this.direccion, 
       this.telefono,
-      this.email,);
+      this.email,
+      this.lat,
+      this.lng
+      );
 
   static Negocio fromSnapshot(DocumentSnapshot snapshot) {
     return Negocio(
@@ -36,6 +41,8 @@ class Negocio {
       snapshot.data['direccion'],
       snapshot.data['telefono'],
       snapshot.data['email'],
+      snapshot.data['lat'],
+      snapshot.data['lng'],
     );
   }
 }

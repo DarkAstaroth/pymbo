@@ -35,6 +35,7 @@ class _MiNegocioState extends State<MiNegocio> {
       ),
       body: NegocioHomeSettings(),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0XFF1D3557),
         child: Icon(Icons.add),
         onPressed: (){
           Navigator.of(context).pushNamed('/add-perfil-negocio');

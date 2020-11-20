@@ -37,10 +37,10 @@ class UserCardNegocio extends StatelessWidget {
             Container(
               width: 70,
               height: 70,
-              color: Colors.green,
+              color: Colors.white,
               child: ClipRRect(
                 child: FadeInImage(
-                  placeholder: AssetImage('assets/img/load-app-render.gif'),
+                  placeholder: AssetImage('assets/img/load-app.gif'),
                   image: NetworkImage(portadaImage))
               )
             ),

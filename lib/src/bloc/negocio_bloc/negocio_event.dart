@@ -22,6 +22,8 @@ class AddNegocio extends NegocioEvent{
   final String direccion;
   final String telefono;
   final String email;
+  final String lat;
+  final String lng;
 
   const AddNegocio(
     this.profileImage, 
@@ -34,6 +36,8 @@ class AddNegocio extends NegocioEvent{
     this.direccion, 
     this.telefono,
     this.email,
+    this.lat,
+    this.lng
     );
 
   @override
@@ -48,6 +52,8 @@ class AddNegocio extends NegocioEvent{
     direccion, 
     telefono,
     email,
+    lat,
+    lng
     ];
 
   @override
