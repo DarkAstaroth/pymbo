@@ -19,27 +19,33 @@ class _SettingOptionsState extends State<SettingOptions> {
                 backgroundColor: Color(0XFFF1FAEE),
                 sections: [
                   SettingsSection(
+                    title: 'Opciones Administrador',
+                    tiles: [
+                      settingsTileDefault('Categorias', null, Typicons.tag,'/admin_categorias'),
+                    ],
+                  ),
+                  SettingsSection(
                     title: 'Preferencias',
                     tiles: [
-                      settingsTileDefault('Idioma', 'Español', Typicons.globe),
+                      settingsTileDefault('Idioma', 'Español', Typicons.globe,''),
                     ],
                   ),
                   SettingsSection(
                     title: 'Ayuda',
                     tiles: [
                       settingsTileDefault(
-                          '¿ Cómo funciona pymbo?', null, Typicons.heart),
+                          '¿ Cómo funciona pymbo?', null, Typicons.heart,''),
                       settingsTileDefault(
-                          'Preguntas Frecuentes', null, Typicons.thumbs_up),
+                          'Preguntas Frecuentes', null, Typicons.thumbs_up,''),
                       settingsTileDefault(
-                          'Terminos y condiciones', null, Typicons.doc),
+                          'Terminos y condiciones', null, Typicons.doc,''),
                     ],
                   ),
                   SettingsSection(
                     title: 'Cuenta',
                     tiles: [
                       settingsTileDefault(
-                          'Cambiar Contraseña', null, Typicons.lock),
+                          'Cambiar Contraseña', null, Typicons.lock,''),
                       settingsTileRed(
                         'Cerrar Sesión',
                         Typicons.export_icon,
@@ -66,7 +72,7 @@ class _SettingOptionsState extends State<SettingOptions> {
     );
   }
 
-    Widget settingsTileDefault(String text, String subText, IconData icono) {
+    Widget settingsTileDefault(String text, String subText, IconData icono,String route) {
     return SettingsTile(
       title: text,
       subtitle: subText,
@@ -79,7 +85,7 @@ class _SettingOptionsState extends State<SettingOptions> {
         color: Color(0XFF1D3557),
       ),
       onTap: () {
-        //BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
+       Navigator.of(context).pushNamed(route);
       },
     );
   }

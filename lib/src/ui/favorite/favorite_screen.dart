@@ -24,7 +24,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 color: Color(0XFF1D3557), fontFamily: 'GilroyB', fontSize: 20),
           ),
           leading: IconButton(
-              color: Color(0XFF1D3557),
+              color: Color(0XFFE63946),
               icon: Icon(Icons.arrow_back),
               onPressed: () {
                 Navigator.pop(context);

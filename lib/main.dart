@@ -3,10 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bloc/bloc.dart';
 import 'package:pymbo/src/bloc/authentication_bloc/bloc.dart';
+import 'package:pymbo/src/bloc/categoria_bloc/categoria_bloc.dart';
+import 'package:pymbo/src/bloc/categoria_bloc/categoria_event.dart';
 import 'package:pymbo/src/bloc/negocio_bloc/negocio_bloc.dart';
 import 'package:pymbo/src/bloc/simple_bloc_delegate.dart';
+import 'package:pymbo/src/repository/categoria_repository.dart';
 import 'package:pymbo/src/repository/negocio_repository.dart';
 import 'package:pymbo/src/repository/user_repository.dart';
+import 'package:pymbo/src/ui/admin_pages/categorias/categorias_list_screen.dart';
 import 'package:pymbo/src/ui/favorite/favorite_screen.dart';
 import 'package:pymbo/src/ui/home_screen.dart';
 import 'package:pymbo/src/ui/login/login_screen.dart';
@@ -33,6 +37,11 @@ void main() {
         create: (context) => NegocioBloc(negocioRepository: NegocioRepository())
           ..add(LoadNegocio()),
       ),
+      BlocProvider<CategoriaBloc>(
+        create: (context) =>
+            CategoriaBloc(categoriaRepository: CategoriaRepository())
+              ..add(LoadCategoria()),
+      ),
     ],
     child: App(userRepository: userRepository),
   ));
@@ -53,6 +62,8 @@ class App extends StatelessWidget {
         routes: <String, WidgetBuilder>{
           '/favoritos': (BuildContext context) => new FavoriteScreen(),
           '/mi_negocio': (BuildContext context) => new MiNegocio(),
+          '/admin_categorias': (BuildContext context) =>
+              new CategoriaListScreen(),
           '/add-perfil-negocio': (BuildContext context) =>
               new CrearPerfilNegocio(
                 onSave: (portadaImage,
@@ -66,8 +77,7 @@ class App extends StatelessWidget {
                     telefono,
                     email,
                     lat,
-                    lng
-                    ) {
+                    lng) {
                   BlocProvider.of<NegocioBloc>(context).add(AddNegocio(
                       portadaImage,
                       profileImage,
@@ -80,8 +90,7 @@ class App extends StatelessWidget {
                       telefono,
                       email,
                       lat,
-                      lng
-                      ));
+                      lng));
                 },
               ),
         },

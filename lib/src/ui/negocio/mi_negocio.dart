@@ -26,7 +26,7 @@ class _MiNegocioState extends State<MiNegocio> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
-            color: Color(0XFF1D3557),
+            color: Color(0XFFE63946),
             ),
           onPressed: (){
             Navigator.pop(context);
