@@ -77,7 +77,7 @@ class _CrearPerfilNegocioState extends State<CrearPerfilNegocio> {
                             ),
                       Container(
                         padding: EdgeInsets.all(8),
-                        width: 150,
+                        width: 180,
                         height: 50,
                         alignment: Alignment.centerRight,
                         child: RaisedButton(
@@ -85,6 +85,7 @@ class _CrearPerfilNegocioState extends State<CrearPerfilNegocio> {
                           elevation: 0,
                           onPressed: getPortadaImage,
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(right: 5),
@@ -94,7 +95,7 @@ class _CrearPerfilNegocioState extends State<CrearPerfilNegocio> {
                                 ),
                               ),
                               Text(
-                                'Subir Foto',
+                                'Subir Portada',
                                 style: TextStyle(
                                     color: Colors.white, fontFamily: 'GilroyB'),
                               ),
@@ -120,30 +121,29 @@ class _CrearPerfilNegocioState extends State<CrearPerfilNegocio> {
                           //borderRadius: BorderRadius.all(Radius.circular(50)),
                         ),
                         child: sampleProfileImage == null
-                            ? Container(
-                                width: 80,
-                                height: 80,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            'assets/img/profile-img.jpg'),
-                                        fit: BoxFit.cover)),
-                              )
-                            : Container(
-                                width: 80,
-                                height: 80,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ) ,
-                                child: ClipRRect(
+                            ?
+                            CircularProfileAvatar(
+                            '',
+                            child: Image(image: AssetImage('assets/img/profile-img.jpg')),
+                            radius: 80,
+                            borderColor: Colors.white,
+                            borderWidth: 4,
+                          )
+                          :
+                            CircularProfileAvatar(
+                            '',
+                            child: ClipRRect(
                                   borderRadius: BorderRadius.circular(50),
                                   child: Image.file(
                                   sampleProfileImage,
                                   fit: BoxFit.cover, 
                                 ),
-                                )
-                              ),
+                                ),
+                            radius: 80,
+                            borderColor: Colors.white,
+                            borderWidth: 3,
+                          )
+
                       ),
                     ),
                   ),
@@ -151,12 +151,13 @@ class _CrearPerfilNegocioState extends State<CrearPerfilNegocio> {
                     height: 10,
                   ),
                   Container(
-                    width: 180,
+                    width: 140,
                     child: RaisedButton(
                             color: Color(0xFFE63946),
                             elevation: 0,
                             onPressed: getProfileImage,
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(right: 5),
@@ -166,7 +167,7 @@ class _CrearPerfilNegocioState extends State<CrearPerfilNegocio> {
                                   ),
                                 ),
                                 Text(
-                                  'Subir Foto Perfil',
+                                  'Subir Perfil',
                                   style: TextStyle(
                                       color: Colors.white, fontFamily: 'GilroyB'),
                                 ),
