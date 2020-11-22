@@ -25,6 +25,7 @@ class _FormularioCategoriaState extends State<FormularioCategoria> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              textCapitalization: TextCapitalization.sentences,
               style: TextStyle(fontFamily: 'GilroyL'),
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(

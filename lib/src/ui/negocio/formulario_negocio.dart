@@ -76,6 +76,7 @@ class _FormularioNegocioState extends State<FormularioNegocio> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              textCapitalization: TextCapitalization.sentences,
               style: TextStyle(fontFamily: 'GilroyB'),
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
@@ -99,6 +100,7 @@ class _FormularioNegocioState extends State<FormularioNegocio> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              textCapitalization: TextCapitalization.sentences,
               style: TextStyle(fontFamily: 'GilroyL'),
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
@@ -122,6 +124,7 @@ class _FormularioNegocioState extends State<FormularioNegocio> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              textCapitalization: TextCapitalization.sentences,
               maxLines: 5,
               style: TextStyle(fontFamily: 'GilroyL'),
               decoration: InputDecoration(
@@ -180,32 +183,9 @@ class _FormularioNegocioState extends State<FormularioNegocio> {
             }
           }),
           Padding(
-              padding: EdgeInsets.all(8),
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5.0),
-                    border: Border.all(color: Colors.grey, width: 1)),
-                child: SmartSelect.single(
-                  choiceConfig: S2ChoiceConfig(
-                      style: S2ChoiceStyle(
-                          titleStyle: TextStyle(fontFamily: 'GilroyB'))),
-                  title: 'Sub - Categoria',
-                  placeholder: 'Elije una opcion',
-                  value: valueSubCategoria,
-                  choiceItems: optionsSubCategoria,
-                  onChange: (state) {
-                    setState(() {
-                      optionsCategoria = [];
-                      optionsSubCategoria = [];
-                      valueSubCategoria = state.value;
-                      subCategoria = valueSubCategoria;
-                    });
-                  },
-                ),
-              )),
-          Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              textCapitalization: TextCapitalization.sentences,
               style: TextStyle(fontFamily: 'GilroyL'),
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
@@ -229,6 +209,7 @@ class _FormularioNegocioState extends State<FormularioNegocio> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              textCapitalization: TextCapitalization.sentences,
               style: TextStyle(fontFamily: 'GilroyL'),
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
@@ -252,6 +233,7 @@ class _FormularioNegocioState extends State<FormularioNegocio> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              textCapitalization: TextCapitalization.sentences,
               style: TextStyle(fontFamily: 'GilroyL'),
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
