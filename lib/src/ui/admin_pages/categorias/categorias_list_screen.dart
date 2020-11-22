@@ -50,7 +50,16 @@ class _CategoriaListScreenState extends State<CategoriaListScreen> {
               child: CircularProgressIndicator(),
             );
           }
-          if (state is CategoriaNoLoaded) {}
+          if (state is CategoriaNoLoaded) {
+            return Center(
+              child: Column(
+                children: <Widget>[
+                  Icon(Icons.error),
+                  Text("No se cargaron los datos")
+                ],
+              ),
+            );
+          }
           if (state is CategoriaLoaded) {
             categoriaList = state.categorias;
             return ListView.builder(
