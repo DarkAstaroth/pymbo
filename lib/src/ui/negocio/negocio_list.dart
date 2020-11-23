@@ -43,7 +43,8 @@ class _NegocioListState extends State<NegocioList> {
                     return UserCardNegocio(
                       negocioList[index].profileImage,
                       negocioList[index].nombre,
-                      negocioList[index].direccion
+                      negocioList[index].direccion,
+                      negocioList[index]
                     );
                    },
                   ),
