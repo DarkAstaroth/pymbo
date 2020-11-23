@@ -1,7 +1,10 @@
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:pymbo/src/models/negocio_model.dart';
+import 'package:pymbo/src/ui/perfil_anuncio/perfil_anuncio.dart';
+import 'package:pymbo/src/ui/perfil_evento/perfil_evento.dart';
 import 'package:pymbo/src/ui/perfil_negocio/info_negocio.dart';
+import 'package:pymbo/src/ui/perfil_producto/perfil_producto.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class PerfilNegocio extends StatefulWidget {
@@ -42,9 +45,9 @@ class _PerfilNegocioState extends State<PerfilNegocio> {
               body: TabBarView(
                 children: [
                   InfoNegocio(negocio: widget.negocio),
-                  Icon(Icons.directions_transit),
-                  Icon(Icons.directions_bike),
-                  Icon(Icons.directions_bike),
+                  PerfilAnuncio(),
+                  PerfilEvento(),
+                  PerfilProducto()
                 ],
               ))),
     );

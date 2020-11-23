@@ -1,6 +1,7 @@
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:pymbo/src/models/negocio_model.dart';
+import 'package:pymbo/src/ui/perfil_negocio/mapa_perfil.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class InfoNegocio extends StatefulWidget {
@@ -85,7 +86,7 @@ class _InfoNegocioState extends State<InfoNegocio> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                getNumbers("0", Icons.favorite_sharp),
+                getNumbers("0", Icons.favorite),
                 getNumbers("0", Icons.star),
                 getNumbers("0", Icons.share),
               ],
@@ -151,7 +152,12 @@ class _InfoNegocioState extends State<InfoNegocio> {
               child: RaisedButton(
                 color: Colors.green,
                 elevation: 0,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MapaPerfil(negocio: widget.negocio)));
+                },
                 child: Text(
                   'Ubicacion en el mapa',
                   style: TextStyle(color: Colors.white, fontFamily: 'GilroyB'),

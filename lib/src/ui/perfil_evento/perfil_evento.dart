@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class PerfilProducto extends StatefulWidget {
+class PerfilEvento extends StatefulWidget {
   @override
-  _PerfilProductoState createState() => _PerfilProductoState();
+  _PerfilEventoState createState() => _PerfilEventoState();
 }
 
-class _PerfilProductoState extends State<PerfilProducto> {
+class _PerfilEventoState extends State<PerfilEvento> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +19,7 @@ class _PerfilProductoState extends State<PerfilProducto> {
           Padding(
             padding: const EdgeInsets.only(left: 15, top: 20),
             child: Text(
-              "Productos",
+              "Eventos",
               style: TextStyle(fontFamily: 'GilroyB', fontSize: 22),
             ),
           ),
@@ -27,7 +27,7 @@ class _PerfilProductoState extends State<PerfilProducto> {
             padding: const EdgeInsets.all(15.0),
             child: Container(
               width: double.infinity,
-              height: 80,
+              height: 120,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -47,7 +47,7 @@ class _PerfilProductoState extends State<PerfilProducto> {
                 children: [
                   Container(
                     width: 80,
-                    height: 80,
+                    height: 120,
                     color: Colors.green,
                   ),
                   Expanded(
@@ -55,8 +55,8 @@ class _PerfilProductoState extends State<PerfilProducto> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(left: 8.0,top: 7),
-                          child: Text("Titulo Producto",
+                          padding: EdgeInsets.only(left: 8.0,top: 15),
+                          child: Text("Titulo Evento",
                           style: TextStyle(
                             fontFamily: 'GilroyB',
                             fontSize: 18
@@ -65,11 +65,11 @@ class _PerfilProductoState extends State<PerfilProducto> {
                         Expanded(
                             child: Container(
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8,vertical: 5),
+                            padding: const EdgeInsets.all(8.0),
                             child: Text(
                               "Elit in veniam laboris reprehenderit duis sit sit. Magna exercitation excepteur cupidatat magna irure sit voluptate ut dolore anim eu Lorem mollit. Ad sit do in nostrud do reprehenderit nulla. Irure et deserunt nisi excepteur tempor do minim. Nisi velit duis incididunt minim reprehenderit esse exercitation consequat. Deserunt sint duis deserunt duis commodo veniam tempor reprehenderit laboris est ipsum esse ullamco Lorem. Mollit enim cillum sint ut deserunt cupidatat in.",
                               overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
+                              maxLines: 3,
                               textAlign: TextAlign.justify,
                             ),
                           ),
