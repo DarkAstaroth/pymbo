@@ -22,14 +22,15 @@ class ProductoRepository {
       String descCorta,
       String descLarga,
       String precio,
-      String stock) async {
+      String stock
+      ) async {
     // Save portada image
     var timeKey = DateTime.now();
 
     // imagen de portada para los productos
 
     final StorageReference productoImageRef =
-        FirebaseStorage.instance.ref().child("Fotos  Productos");
+        FirebaseStorage.instance.ref().child("Fotos Productos");
 
     final StorageUploadTask uploadTask = productoImageRef
         .child(timeKey.toString() + ".jpg")

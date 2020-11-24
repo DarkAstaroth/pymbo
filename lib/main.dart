@@ -6,9 +6,12 @@ import 'package:pymbo/src/bloc/authentication_bloc/bloc.dart';
 import 'package:pymbo/src/bloc/categoria_bloc/categoria_bloc.dart';
 import 'package:pymbo/src/bloc/categoria_bloc/categoria_event.dart';
 import 'package:pymbo/src/bloc/negocio_bloc/negocio_bloc.dart';
+import 'package:pymbo/src/bloc/producto_bloc/producto_bloc.dart';
+import 'package:pymbo/src/bloc/producto_bloc/producto_event.dart';
 import 'package:pymbo/src/bloc/simple_bloc_delegate.dart';
 import 'package:pymbo/src/repository/categoria_repository.dart';
 import 'package:pymbo/src/repository/negocio_repository.dart';
+import 'package:pymbo/src/repository/producto_repository.dart';
 import 'package:pymbo/src/repository/user_repository.dart';
 import 'package:pymbo/src/ui/admin_pages/categorias/categorias_list_screen.dart';
 import 'package:pymbo/src/ui/favorite/favorite_screen.dart';
@@ -16,6 +19,7 @@ import 'package:pymbo/src/ui/home_screen.dart';
 import 'package:pymbo/src/ui/login/login_screen.dart';
 import 'package:pymbo/src/ui/negocio/mi_negocio.dart';
 import 'package:pymbo/src/ui/negocio/crear_perfil_negocio.dart';
+import 'package:pymbo/src/ui/perfil_producto/crear_producto.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:pymbo/src/bloc/negocio_bloc/negocio_event.dart';
 
@@ -42,6 +46,11 @@ void main() {
             CategoriaBloc(categoriaRepository: CategoriaRepository())
               ..add(LoadCategoria()),
       ),
+            BlocProvider<ProductoBloc>(
+        create: (context) =>
+            ProductoBloc(productoRepository: ProductoRepository())
+              ..add(LoadProducto()),
+      ),
     ],
     child: App(userRepository: userRepository),
   ));
@@ -63,7 +72,7 @@ class App extends StatelessWidget {
           '/favoritos': (BuildContext context) => new FavoriteScreen(),
           '/mi_negocio': (BuildContext context) => new MiNegocio(),
           '/admin_categorias': (BuildContext context) =>
-              new CategoriaListScreen(),
+              new CategoriaListScreen(),   
           '/add-perfil-negocio': (BuildContext context) =>
               new CrearPerfilNegocio(
                 onSave: (portadaImage,

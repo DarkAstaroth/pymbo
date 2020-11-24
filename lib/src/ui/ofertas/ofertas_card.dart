@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
 
 class OfertasCard extends StatefulWidget {
+
+  
+  final String nombre;
+  final String imagen;
+  final String desc;
+  final String precio;
+  final String stock;
+
+  const OfertasCard({Key key, this.nombre, this.imagen, this.desc, this.precio, this.stock}) : super(key: key);
+
+  
+
   @override
   _OfertasCardState createState() => _OfertasCardState();
 }
@@ -14,10 +26,12 @@ class _OfertasCardState extends State<OfertasCard> {
         children: [
           Container(
             width: 100,
-            height: 150,
-            decoration: BoxDecoration(
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(5)),
+            height: 100,
+            child: ClipRRect(
+              child: FadeInImage(
+                placeholder: AssetImage('assets/img/load-app.gif'), 
+                image: NetworkImage(widget.imagen)),
+            ),
           ),
           Expanded(
               child: Container(
@@ -32,11 +46,11 @@ class _OfertasCardState extends State<OfertasCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Producto 1",
+                     widget.nombre,
                       style: TextStyle(fontFamily: 'GilroyB', fontSize: 20),
                     ),
                     Text(
-                      "Precio",
+                      "Bs${widget.precio}",
                       style: TextStyle(
                           fontFamily: 'GilroyB',
                           color: Colors.grey,
@@ -45,36 +59,24 @@ class _OfertasCardState extends State<OfertasCard> {
                   ],
                 ),
                 Text(
-                  "Ipsum reprehenderit sit voluptate aliquip non laborum ullamco elit sint enim. Irure quis duis ",
+                  widget.desc,
                   style: TextStyle(fontFamily: 'Gilroyl', fontSize: 13),
                 ),
                 SizedBox(height: 10),
                 Row(
                   children: [
-                    Icon(Icons.favorite, size: 18),
+                    Icon(Icons.shopping_cart, size: 18),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 2),
                       child: Text(
-                        "20",
+                        widget.stock,
                         style: TextStyle(fontFamily: 'Gilroyl', fontSize: 12),
                       ),
                     )
                   ],
                 ),
-                Row(
-                  children: [
-                    Icon(Icons.message, size: 18),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
-                      child: Text(
-                        "10",
-                        style: TextStyle(fontFamily: 'Gilroyl', fontSize: 12),
-                      ),
-                    )
-                  ],
-                ),
+
 
               ],
             ),

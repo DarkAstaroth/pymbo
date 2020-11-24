@@ -47,7 +47,7 @@ class _PerfilNegocioState extends State<PerfilNegocio> {
                   InfoNegocio(negocio: widget.negocio),
                   PerfilAnuncio(),
                   PerfilEvento(),
-                  PerfilProducto()
+                  PerfilProducto(negocio: widget.negocio)
                 ],
               ))),
     );
