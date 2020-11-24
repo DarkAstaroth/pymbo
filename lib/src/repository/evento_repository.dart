@@ -3,14 +3,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:pymbo/src/models/evento_model.dart';
-import 'package:pymbo/src/models/evento_model.dart';
 
 class EventoRepository {
   final dataBaseReference = Firestore.instance.collection('eventos');
 
   Stream<List<Evento>> getEventos() {
     return dataBaseReference.snapshots().map((snapshot) {
-      return snapshot.documents.map((doc) => Evento.fromSnapshot(doc)).toList();
+      return snapshot.documents
+          .map((doc) => Evento.fromSnapshot(doc))
+          .toList();
     });
   }
 

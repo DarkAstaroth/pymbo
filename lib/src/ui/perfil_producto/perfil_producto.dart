@@ -60,7 +60,7 @@ class _PerfilProductoState extends State<PerfilProducto> {
                   productoList.add(state.productos[i]);
                 }
               }
-              productoList = state.productos;
+
               return productoList.length == 0
                   ? Center(
                       child: Text("No hay productos disponibles"),

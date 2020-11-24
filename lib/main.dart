@@ -5,11 +5,14 @@ import 'package:bloc/bloc.dart';
 import 'package:pymbo/src/bloc/authentication_bloc/bloc.dart';
 import 'package:pymbo/src/bloc/categoria_bloc/categoria_bloc.dart';
 import 'package:pymbo/src/bloc/categoria_bloc/categoria_event.dart';
+import 'package:pymbo/src/bloc/evento_bloc/evento_bloc.dart';
+import 'package:pymbo/src/bloc/evento_bloc/evento_event.dart';
 import 'package:pymbo/src/bloc/negocio_bloc/negocio_bloc.dart';
 import 'package:pymbo/src/bloc/producto_bloc/producto_bloc.dart';
 import 'package:pymbo/src/bloc/producto_bloc/producto_event.dart';
 import 'package:pymbo/src/bloc/simple_bloc_delegate.dart';
 import 'package:pymbo/src/repository/categoria_repository.dart';
+import 'package:pymbo/src/repository/evento_repository.dart';
 import 'package:pymbo/src/repository/negocio_repository.dart';
 import 'package:pymbo/src/repository/producto_repository.dart';
 import 'package:pymbo/src/repository/user_repository.dart';
@@ -50,6 +53,11 @@ void main() {
         create: (context) =>
             ProductoBloc(productoRepository: ProductoRepository())
               ..add(LoadProducto()),
+      ),
+       BlocProvider<EventoBloc>(
+        create: (context) =>
+            EventoBloc(eventoRepository: EventoRepository())
+              ..add(LoadEvento()),
       ),
     ],
     child: App(userRepository: userRepository),

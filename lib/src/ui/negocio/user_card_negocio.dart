@@ -57,6 +57,7 @@ class UserCardNegocio extends StatelessWidget {
                         ),
                         Text(
                           email,
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontFamily: 'GilroyL', fontSize: 10),
                         ),
                       ],

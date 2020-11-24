@@ -36,9 +36,6 @@ class EventoBloc extends Bloc<EventoEvent, EventoState> {
       _eventoSubscription = _eventoRepository
           .getEventos()
           .listen((eventos) => add(EventoUpdated(eventos)));
-      //final List<Negocio> negocios = await _negocioRepository.getNegocios().first;
-      //yield NegocioLoaded(negocios);
-
     } catch (_) {
       yield EventoNoLoaded();
     }

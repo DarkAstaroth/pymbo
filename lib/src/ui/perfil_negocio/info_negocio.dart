@@ -107,7 +107,8 @@ class _InfoNegocioState extends State<InfoNegocio> {
         Padding(
             padding: EdgeInsets.symmetric(vertical: 0, horizontal: 40),
             child: Text(
-              "Et occaecat id nulla amet do duis duis magna elit labore duis eu.",
+              //"Et occaecat id nulla amet do duis duis magna elit labore duis eu.",
+              widget.negocio.descCorta,
               textAlign: TextAlign.center,
               style: TextStyle(fontFamily: 'GilroyL'),
             )),
@@ -115,7 +116,8 @@ class _InfoNegocioState extends State<InfoNegocio> {
         Padding(
             padding: EdgeInsets.symmetric(vertical: 0, horizontal: 40),
             child: Text(
-              "Ad nulla nulla qui excepteur do velit anim et do veniam mollit. Eu dolore veniam sit cillum est incididunt laboris qui do cupidatat. Non est in minim ut reprehenderit nulla. Excepteur occaecat eu anim amet adipisicing cupidatat. Sint veniam sunt exercitation anim.",
+              //"Ad nulla nulla qui excepteur do velit anim et do veniam mollit. Eu dolore veniam sit cillum est incididunt laboris qui do cupidatat. Non est in minim ut reprehenderit nulla. Excepteur occaecat eu anim amet adipisicing cupidatat. Sint veniam sunt exercitation anim.",
+              widget.negocio.descLarga,
               textAlign: TextAlign.center,
               style: TextStyle(fontFamily: 'GilroyL'),
             )),
@@ -179,6 +181,7 @@ class _InfoNegocioState extends State<InfoNegocio> {
           children: [
             Text(
               number,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(fontFamily: 'GilroyB', fontSize: 20),
             ),
             Icon(icono)
@@ -190,21 +193,27 @@ class _InfoNegocioState extends State<InfoNegocio> {
 
   Widget getDatos(IconData icono, String text) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Icon(icono),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 10),
-          child: Text(
-            text,
-            textAlign: TextAlign.left,
-            style: TextStyle(
-              fontFamily: 'GilroyL',
-              fontSize: 15,
+          child: Container(
+            width: 270,
+            height: 30,
+            child: Text(
+              text,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontFamily: 'GilroyL',
+                fontSize: 12,
+              ),
             ),
           ),
         ),
-        Icon(Icons.arrow_forward_ios),
+        
       ],
     );
   }

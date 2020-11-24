@@ -51,6 +51,7 @@ dependencies:
   smart_select: ^4.3.2
   google_maps_place_picker: ^0.10.0
   google_maps_flutter: ^0.5.25+3
+  datetime_picker_formfield: ^1.0.0
 
 dev_dependencies:
   flutter_test:

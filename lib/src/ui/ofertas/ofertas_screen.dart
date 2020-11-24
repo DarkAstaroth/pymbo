@@ -56,10 +56,10 @@ class _OfertaScreenState extends State<OfertaScreen> {
                 productoList = state.productos;
                 return productoList.length == 0
                     ? Expanded(
-                                          child: Center(
+                        child: Center(
                           child: Text("No hay productos disponibles"),
                         ),
-                    )
+                      )
                     : Expanded(
                         child: ListView.builder(
                           itemCount: productoList.length,
