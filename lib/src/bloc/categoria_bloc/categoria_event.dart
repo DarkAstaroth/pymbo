@@ -17,7 +17,6 @@ class AddCategoria extends CategoriaEvent{
 
   const AddCategoria(
     this.nombreCategoria, 
-
     );
 
   @override
