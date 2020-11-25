@@ -32,11 +32,15 @@ class EventoBloc extends Bloc<EventoEvent, EventoState> {
   Stream<EventoState> _mapLoadEventoToState() async* {
     yield EventoLoading();
     _eventoSubscription?.cancel();
+
     try {
       _eventoSubscription = _eventoRepository
           .getEventos()
-          .listen((eventos) => add(EventoUpdated(eventos)));
-    } catch (_) {
+          .listen((
+            event
+            ) => add(EventoUpdated(event)));
+    } catch (e) {
+      print(e);
       yield EventoNoLoaded();
     }
   }
@@ -53,8 +57,7 @@ class EventoBloc extends Bloc<EventoEvent, EventoState> {
         event.precio,
         event.cupos,
         event.vigencia,
-        event.desc
-        );
+        event.desc);
   }
 
   Stream<EventoState> _mapEventoUpdatedToState(EventoUpdated event) async* {

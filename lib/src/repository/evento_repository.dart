@@ -65,17 +65,17 @@ class EventoRepository {
     String time = formatTime.format(timeKey);
 
     dataBaseReference.document().setData({
-      'idNegocio,': idNegocio,
-      'tituloEvento,': tituloEvento,
-      'fotoPortada,': eventoPortadaUrl,
-      'fotoCartel,': eventoCartelUrl,
-      'hora,': hora,
-      'fechaInicio,': fechaInicio,
-      'fechaFin,': fechaFin,
-      'precio,': precio,
-      'cupos,': cupos,
-      'vigencia,': vigencia,
-      'desc,': desc,
+      'idNegocio': idNegocio,
+      'tituloEvento': tituloEvento,
+      'fotoPortada': eventoPortadaUrl,
+      'fotoCartel': eventoCartelUrl,
+      'hora': hora,
+      'fechaInicio': fechaInicio,
+      'fechaFin': fechaFin,
+      'precio': precio,
+      'cupos': cupos,
+      'vigencia': vigencia,
+      'desc': desc,
       'date': date,
       'time': time
     });

@@ -22,7 +22,6 @@ import 'package:pymbo/src/ui/home_screen.dart';
 import 'package:pymbo/src/ui/login/login_screen.dart';
 import 'package:pymbo/src/ui/negocio/mi_negocio.dart';
 import 'package:pymbo/src/ui/negocio/crear_perfil_negocio.dart';
-import 'package:pymbo/src/ui/perfil_producto/crear_producto.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:pymbo/src/bloc/negocio_bloc/negocio_event.dart';
 

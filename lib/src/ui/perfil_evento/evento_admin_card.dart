@@ -34,7 +34,11 @@ class EventoAdminCard extends StatelessWidget {
             Container(
               width: 80,
               height: 120,
-              color: Colors.green,
+              child: ClipRRect(
+                child: FadeInImage(
+                  placeholder: AssetImage("assets/img/load-app.gif"), 
+                  image: NetworkImage(fotoCartel)),
+              ),
             ),
             Expanded(
               child: Column(
@@ -43,7 +47,7 @@ class EventoAdminCard extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(left: 8.0, top: 15),
                     child: Text(
-                      "",
+                      titulo,
                       style: TextStyle(fontFamily: 'GilroyB', fontSize: 18),
                     ),
                   ),
@@ -52,7 +56,8 @@ class EventoAdminCard extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        "Elit in veniam laboris reprehenderit duis sit sit. Magna exercitation excepteur cupidatat magna irure sit voluptate ut dolore anim eu Lorem mollit. Ad sit do in nostrud do reprehenderit nulla. Irure et deserunt nisi excepteur tempor do minim. Nisi velit duis incididunt minim reprehenderit esse exercitation consequat. Deserunt sint duis deserunt duis commodo veniam tempor reprehenderit laboris est ipsum esse ullamco Lorem. Mollit enim cillum sint ut deserunt cupidatat in.",
+                        //"Elit in veniam laboris reprehenderit duis sit sit. Magna exercitation excepteur cupidatat magna irure sit voluptate ut dolore anim eu Lorem mollit. Ad sit do in nostrud do reprehenderit nulla. Irure et deserunt nisi excepteur tempor do minim. Nisi velit duis incididunt minim reprehenderit esse exercitation consequat. Deserunt sint duis deserunt duis commodo veniam tempor reprehenderit laboris est ipsum esse ullamco Lorem. Mollit enim cillum sint ut deserunt cupidatat in.",
+                        desc,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
                         textAlign: TextAlign.justify,

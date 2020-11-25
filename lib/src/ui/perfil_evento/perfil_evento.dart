@@ -10,7 +10,7 @@ import 'package:pymbo/src/ui/perfil_evento/evento_admin_card.dart';
 class PerfilEvento extends StatefulWidget {
     final Negocio negocio;
 
-  const PerfilEvento({Key key, this.negocio}) : super(key: key);
+  const PerfilEvento({Key key, @required this.negocio}) : super(key: key);
   @override
   _PerfilEventoState createState() => _PerfilEventoState();
 }
@@ -44,7 +44,8 @@ class _PerfilEventoState extends State<PerfilEvento> {
               style: TextStyle(fontFamily: 'GilroyB', fontSize: 22),
             ),
           ),
-            BlocBuilder<EventoBloc, EventoState>(builder: (context, state) {
+            BlocBuilder<EventoBloc, EventoState>(
+              builder: (context, state) {
             if (state is EventoLoading) {
               return Center(
                 child: CircularProgressIndicator(),
