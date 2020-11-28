@@ -1,8 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:pymbo/src/models/negocio_model.dart';
+import 'package:pymbo/src/ui/perfil_anuncio/crear_anuncio.dart';
 
 class PerfilAnuncio extends StatefulWidget {
+  final Negocio negocio;
+
+  const PerfilAnuncio({Key key, @required this.negocio}) : super(key: key);
   @override
   _PerfilAnuncioState createState() => _PerfilAnuncioState();
 }
@@ -14,7 +19,13 @@ class _PerfilAnuncioState extends State<PerfilAnuncio> {
       floatingActionButton: FloatingActionButton(
           backgroundColor: Color(0XFFE63946),
           child: Icon(Icons.add),
-          onPressed: () {}),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => CrearAnuncio(negocio: widget.negocio)),
+            );
+          }),
       backgroundColor: Color(0XFFF1FAEE),
       body: ListView(
         children: [

@@ -45,7 +45,7 @@ class _PerfilNegocioState extends State<PerfilNegocio> {
               body: TabBarView(
                 children: [
                   InfoNegocio(negocio: widget.negocio),
-                  PerfilAnuncio(),
+                  PerfilAnuncio(negocio: widget.negocio),
                   PerfilEvento(negocio: widget.negocio),
                   PerfilProducto(negocio: widget.negocio)
                 ],

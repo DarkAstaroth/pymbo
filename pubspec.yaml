@@ -52,6 +52,8 @@ dependencies:
   google_maps_place_picker: ^0.10.0
   google_maps_flutter: ^0.5.25+3
   datetime_picker_formfield: ^1.0.0
+  flutter_rounded_date_picker: ^1.0.5+1
+
 
 dev_dependencies:
   flutter_test:
