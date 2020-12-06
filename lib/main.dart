@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bloc/bloc.dart';
+import 'package:pymbo/src/bloc/anuncio_bloc/anuncio_bloc.dart';
+import 'package:pymbo/src/bloc/anuncio_bloc/anuncio_event.dart';
 import 'package:pymbo/src/bloc/authentication_bloc/bloc.dart';
 import 'package:pymbo/src/bloc/categoria_bloc/categoria_bloc.dart';
 import 'package:pymbo/src/bloc/categoria_bloc/categoria_event.dart';
@@ -11,6 +13,7 @@ import 'package:pymbo/src/bloc/negocio_bloc/negocio_bloc.dart';
 import 'package:pymbo/src/bloc/producto_bloc/producto_bloc.dart';
 import 'package:pymbo/src/bloc/producto_bloc/producto_event.dart';
 import 'package:pymbo/src/bloc/simple_bloc_delegate.dart';
+import 'package:pymbo/src/repository/anuncio_repository.dart';
 import 'package:pymbo/src/repository/categoria_repository.dart';
 import 'package:pymbo/src/repository/evento_repository.dart';
 import 'package:pymbo/src/repository/negocio_repository.dart';
@@ -57,6 +60,11 @@ void main() {
         create: (context) =>
             EventoBloc(eventoRepository: EventoRepository())
               ..add(LoadEvento()),
+      ),
+      BlocProvider<AnuncioBloc>(
+        create: (context) =>
+            AnuncioBloc(anuncioRepository: AnuncioRepository())
+              ..add(LoadAnuncio()),
       ),
     ],
     child: App(userRepository: userRepository),

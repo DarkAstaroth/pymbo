@@ -1,7 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:pymbo/src/bloc/anuncio_bloc/anuncio_bloc.dart';
+import 'package:pymbo/src/bloc/anuncio_bloc/anuncio_event.dart';
 import 'package:pymbo/src/models/negocio_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,19 +21,19 @@ class FormularioAnuncio extends StatefulWidget {
 }
 
 class _FormularioAnuncioState extends State<FormularioAnuncio> {
-  String titulo;
-  String precio;
-  String cupos;
-  String desc;
-
   final format = DateFormat("dd-MM-yyyy");
-
   final formKey = GlobalKey<FormState>();
-  DateTime dateTime;
-  DateTime dateTime2;
   TextEditingController dateCtl = TextEditingController();
   TextEditingController dateCtl2 = TextEditingController();
   TextEditingController timeCtl = TextEditingController();
+  TextEditingController timeCtl2 = TextEditingController();
+
+  String descCorta;
+  String descLarga;
+  String fechaInicio;
+  String fechaFin;
+  String horaInicio;
+  String horaFin;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +62,7 @@ class _FormularioAnuncioState extends State<FormularioAnuncio> {
               autocorrect: true,
               onChanged: (value) {
                 setState(() {
-                  titulo = value;
+                  descCorta = value;
                 });
               },
             ),
@@ -86,37 +89,37 @@ class _FormularioAnuncioState extends State<FormularioAnuncio> {
               autocorrect: true,
               onChanged: (value) {
                 setState(() {
-                  desc = value;
+                  descLarga = value;
                 });
               },
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              textCapitalization: TextCapitalization.sentences,
-              style: TextStyle(fontFamily: 'GilroyL'),
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color(0xFF1D3557), width: 2.0)),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
-                labelText: 'Dias de duracion',
-                labelStyle:
-                    TextStyle(color: Color(0xFF1D3557), fontFamily: 'GilroyB'),
-                //suffixIcon: Icon(Icons.email, color: Color(0xFF1D3557)),
-              ),
-              keyboardType: TextInputType.number,
-              autovalidate: true,
-              autocorrect: true,
-              onChanged: (value) {
-                setState(() {
-                  cupos = value;
-                });
-              },
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: TextFormField(
+          //     textCapitalization: TextCapitalization.sentences,
+          //     style: TextStyle(fontFamily: 'GilroyL'),
+          //     decoration: InputDecoration(
+          //       focusedBorder: OutlineInputBorder(
+          //           borderSide:
+          //               BorderSide(color: Color(0xFF1D3557), width: 2.0)),
+          //       border: OutlineInputBorder(
+          //           borderRadius: BorderRadius.circular(5.0)),
+          //       labelText: 'Dias de duracion',
+          //       labelStyle:
+          //           TextStyle(color: Color(0xFF1D3557), fontFamily: 'GilroyB'),
+          //       //suffixIcon: Icon(Icons.email, color: Color(0xFF1D3557)),
+          //     ),
+          //     keyboardType: TextInputType.number,
+          //     autovalidate: true,
+          //     autocorrect: true,
+          //     onChanged: (value) {
+          //       setState(() {
+          //         cupos = value;
+          //       });
+          //     },
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
@@ -150,7 +153,7 @@ class _FormularioAnuncioState extends State<FormularioAnuncio> {
                 date = format.format(newDateTime);
                 dateCtl.text = date;
                 if (newDateTime != null) {
-                  setState(() => dateTime = newDateTime);
+                  setState(() => fechaInicio = date);
                 }
               },
             ),
@@ -174,7 +177,7 @@ class _FormularioAnuncioState extends State<FormularioAnuncio> {
                 //suffixIcon: Icon(Icons.email, color: Color(0xFF1D3557)),
               ),
               onTap: () async {
-                String date = "";
+                String date2 = "";
                 DateTime newDateTime2 = await showRoundedDatePicker(
                   height: 300,
                   context: context,
@@ -185,10 +188,10 @@ class _FormularioAnuncioState extends State<FormularioAnuncio> {
                   lastDate: DateTime(DateTime.now().year + 3),
                   borderRadius: 16,
                 );
-                date = format.format(newDateTime2);
-                dateCtl2.text = date;
+                date2 = format.format(newDateTime2);
+                dateCtl2.text = date2;
                 if (newDateTime2 != null) {
-                  setState(() => dateTime2 = newDateTime2);
+                  setState(() => fechaFin = date2);
                 }
               },
             ),
@@ -212,17 +215,59 @@ class _FormularioAnuncioState extends State<FormularioAnuncio> {
                 //suffixIcon: Icon(Icons.email, color: Color(0xFF1D3557)),
               ),
               onTap: () async {
-                final timePicked  = await showRoundedTimePicker(
+                final timePicked = await showRoundedTimePicker(
                   context: context,
                   background: Colors.white,
                   fontFamily: 'GilroyB',
                   theme: ThemeData(primarySwatch: Colors.blue),
                   locale: Locale('en', 'US'),
-                  initialTime: TimeOfDay(hour: 12,minute: 0),
+                  initialTime: TimeOfDay(hour: 12, minute: 0),
                   borderRadius: 20,
                 );
+                final localizations1 = MaterialLocalizations.of(context);
+                final formattedTimeOfDay1 =
+                    localizations1.formatTimeOfDay(timePicked);
                 setState(() {
-                  timeCtl.text = timePicked.toString();
+                  timeCtl.text = formattedTimeOfDay1.toString();
+                  horaInicio =formattedTimeOfDay1.toString();
+                });
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              controller: timeCtl2,
+              readOnly: true,
+              textCapitalization: TextCapitalization.sentences,
+              style: TextStyle(fontFamily: 'GilroyL'),
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Color(0xFF1D3557), width: 2.0)),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0)),
+                labelText: 'Hora final',
+                labelStyle:
+                    TextStyle(color: Color(0xFF1D3557), fontFamily: 'GilroyB'),
+                //suffixIcon: Icon(Icons.email, color: Color(0xFF1D3557)),
+              ),
+              onTap: () async {
+                final timePicked = await showRoundedTimePicker(
+                  context: context,
+                  background: Colors.white,
+                  fontFamily: 'GilroyB',
+                  theme: ThemeData(primarySwatch: Colors.blue),
+                  locale: Locale('en', 'US'),
+                  initialTime: TimeOfDay(hour: 12, minute: 0),
+                  borderRadius: 20,
+                );
+                final localizations2 = MaterialLocalizations.of(context);
+                final formattedTimeOfDay2 =
+                    localizations2.formatTimeOfDay(timePicked);
+                setState(() {
+                  timeCtl2.text = formattedTimeOfDay2.toString();
+                  horaFin = formattedTimeOfDay2.toString();
                 });
               },
             ),
@@ -235,7 +280,18 @@ class _FormularioAnuncioState extends State<FormularioAnuncio> {
               child: RaisedButton(
                 color: Color(0xFFE63946),
                 elevation: 0,
-                onPressed: () {},
+                onPressed: () {
+                  BlocProvider.of<AnuncioBloc>(context).add(
+                    AddAnuncio(
+                      widget.imagenAnuncio, 
+                      widget.negocio.id, 
+                      fechaInicio, 
+                      fechaFin, 
+                      "0", 
+                      descCorta, 
+                      descLarga));
+                  Navigator.pop(context);
+                },
                 child: Text(
                   'Guardar Cambios ',
                   style: TextStyle(color: Colors.white, fontFamily: 'GilroyB'),
