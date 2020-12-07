@@ -38,3 +38,39 @@ class CategoriaUpdated extends CategoriaEvent{
 
 
 }
+
+class CategoriaDeleted extends CategoriaEvent{
+  final String idCategoria;
+
+
+  const CategoriaDeleted(
+    this.idCategoria, 
+    );
+
+  @override
+  List<Object> get props => [
+    idCategoria
+    ];
+
+  @override
+  String toString()=> 'Deleting Categoria';
+}
+
+class CategoriaUpdatedDB extends CategoriaEvent{
+  final String idCategoria;
+  final String nombreCategoria;
+
+
+  const CategoriaUpdatedDB(
+    this.idCategoria,
+    this.nombreCategoria, 
+    );
+
+  @override
+  List<Object> get props => [
+    nombreCategoria
+    ];
+
+  @override
+  String toString()=> 'Updating Categoria';
+}

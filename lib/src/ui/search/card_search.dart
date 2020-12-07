@@ -1,11 +1,14 @@
+import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_page_indicator/flutter_page_indicator.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:fluttericon/typicons_icons.dart';
+import 'package:pymbo/src/models/negocio_model.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class CardSearch extends StatefulWidget {
-  CardSearch({Key key}) : super(key: key);
+  final List<Negocio> negocios;
+  CardSearch({Key key, this.negocios}) : super(key: key);
 
   @override
   _CardSearchState createState() => _CardSearchState();
@@ -27,13 +30,19 @@ class _CardSearchState extends State<CardSearch> {
                     width: double.infinity,
                     height: 180,
                     decoration: BoxDecoration(
-                        //color: Colors.blue,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(5),
-                            topRight: Radius.circular(5)),
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage("assets/img/yuriña1.jpg"))),
+                      //color: Colors.blue,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(5),
+                          topRight: Radius.circular(5)),
+                    ),
+                    child: ClipRRect(
+                      child: FadeInImage(
+                          fit: BoxFit.cover,
+                          placeholder:
+                              AssetImage("assets/img/load-app-render.gif"),
+                          image: NetworkImage(
+                              widget.negocios[index].portadaImage)),
+                    ),
                   ),
                   Align(
                     alignment: Alignment.center,
@@ -45,10 +54,16 @@ class _CardSearchState extends State<CardSearch> {
                       decoration: BoxDecoration(
 
                           //borderRadius: BorderRadius.circular(5),
-                          image: DecorationImage(
-                              image: AssetImage("assets/img/yuriña2.jpg")),
+
                           border: Border.all(color: Colors.white, width: 2),
                           shape: BoxShape.circle),
+                      child: CircularProfileAvatar(
+                      widget.negocios[index].profileImage,
+                      //child: Image(image: AssetImage('assets/img/profile-img.jpg')),
+                      radius: 80,
+                      borderColor: Colors.white,
+                      borderWidth: 4,
+                    )
                     ),
                   )
                 ],
@@ -60,13 +75,13 @@ class _CardSearchState extends State<CardSearch> {
                   child: Column(
                 children: [
                   Text(
-                    "Yuriña",
+                    widget.negocios[index].nombre,
                     style: TextStyle(fontFamily: 'GilroyB', fontSize: 20),
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Text(
-                      "Categoria",
+                      widget.negocios[index].categoria,
                       style: TextStyle(fontFamily: 'GilroyL', fontSize: 10),
                     ),
                   ),
@@ -81,13 +96,15 @@ class _CardSearchState extends State<CardSearch> {
                             padding:
                                 EdgeInsets.only(top: 10, left: 10, right: 10),
                             child: RichText(
+                              maxLines: 4,
+                              overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.center,
                                 text: TextSpan(
                                     style: TextStyle(
                                         fontFamily: 'GilroyL',
                                         color: Colors.black),
                                     text:
-                                        "Quis officia cupidatat dolor officia veniam amet excepteur anim consequat. Id duis sunt eu anim eu mollit enim. Ea ad sit ut pariatur ut consequat in dolor duis dolor quis dolore esse nulla."))),
+                                        widget.negocios[index].descLarga))),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 30),
                           child: Row(
@@ -113,7 +130,7 @@ class _CardSearchState extends State<CardSearch> {
         );
       },
       indicatorLayout: PageIndicatorLayout.COLOR,
-      itemCount: 10,
+      itemCount: widget.negocios.length,
       //pagination: new SwiperPagination(),
       autoplay: true,
       loop: true,

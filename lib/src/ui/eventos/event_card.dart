@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
 class EventCard extends StatefulWidget {
+  final String fotoEvento;
+  final String tituloEvento;
+  final String desc;
+  final String precio;
+
+  const EventCard({Key key, this.fotoEvento, this.tituloEvento, this.desc, this.precio}) : super(key: key);
   @override
   _EventCardState createState() => _EventCardState();
 }
@@ -16,8 +22,13 @@ class _EventCardState extends State<EventCard> {
             width: 100,
             height: 150,
             decoration: BoxDecoration(
-                color: Colors.greenAccent,
                 borderRadius: BorderRadius.circular(5)),
+            child: ClipRRect(
+              child: FadeInImage(
+                fit: BoxFit.cover,
+                placeholder: AssetImage("assets/img/load-app.gif"), 
+                image: NetworkImage(widget.fotoEvento)),
+            ),
           ),
           Expanded(
               child: Container(
@@ -32,11 +43,11 @@ class _EventCardState extends State<EventCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Titulo Evento",
+                      widget.tituloEvento,
                       style: TextStyle(fontFamily: 'GilroyB', fontSize: 20),
                     ),
                     Text(
-                      "Gratis",
+                      "${widget.precio} Bs",
                       style: TextStyle(
                           fontFamily: 'GilroyB',
                           color: Colors.grey,
@@ -45,7 +56,9 @@ class _EventCardState extends State<EventCard> {
                   ],
                 ),
                 Text(
-                  "Descripcion",
+                  widget.desc,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(fontFamily: 'Gilroyl', fontSize: 13),
                 ),
                 SizedBox(height: 10),

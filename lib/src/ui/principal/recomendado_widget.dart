@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pymbo/src/bloc/negocio_bloc/negocio_bloc.dart';
+import 'package:pymbo/src/bloc/negocio_bloc/negocio_state.dart';
+import 'package:pymbo/src/models/negocio_model.dart';
 
 class RecomendadoWidget extends StatelessWidget {
+  List<Negocio> negocioList = [];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,15 +32,29 @@ class RecomendadoWidget extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.only(top: 10),
               // color: Colors.red,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  recomendadoItem(),
-                  recomendadoItem(),
-                  recomendadoItem(),
-                  recomendadoItem(),
-                ],
-              ),
+              child: BlocBuilder<NegocioBloc, NegocioState>(
+                  builder: (context, state) {
+                if (state is NegocioLoading) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                if (state is NegocioNoLoaded) {
+                  return Center(child: CircularProgressIndicator());
+                }
+                if (state is NegocioLoaded) {
+                  negocioList = state.negocios;
+                  return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: negocioList.length,
+                      itemBuilder: (_, int index) {
+                        return recomendadoItem(
+                            negocioList[index].profileImage,
+                            negocioList[index].nombre,
+                            negocioList[index].descCorta,
+                            negocioList[index].categoria);
+                      });
+                }
+                //
+              }),
             ),
           )
         ],
@@ -43,13 +62,9 @@ class RecomendadoWidget extends StatelessWidget {
     );
   }
 
-  Widget recomendadoItem() {
+  Widget recomendadoItem(String fotoPerfil, String nombre, String descCorta,String categoria) {
     return Padding(
-      padding: EdgeInsets.only(
-        right: 10,
-        top: 10,
-        bottom: 10
-      ),
+      padding: EdgeInsets.only(right: 10, top: 10, bottom: 10),
       child: Container(
         height: double.infinity,
         width: 300,
@@ -79,10 +94,11 @@ class RecomendadoWidget extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(5),
                       bottomLeft: Radius.circular(5)),
-                  child: Image(
-                    image: AssetImage('assets/img/yuriña2.jpg'),
-                    fit: BoxFit.cover,
-                  ),
+                  child: ClipRRect(
+                    child: FadeInImage(
+                      placeholder: AssetImage("assets/img/load-app.gif"), 
+                      image: NetworkImage(fotoPerfil)),
+                  )
                 )),
             Padding(
               padding: EdgeInsets.all(5),
@@ -90,7 +106,7 @@ class RecomendadoWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Negocio 1',
+                    nombre,
                     style: TextStyle(fontFamily: 'GilroyB', fontSize: 15),
                   ),
                   Row(
@@ -122,10 +138,16 @@ class RecomendadoWidget extends StatelessWidget {
                       )
                     ],
                   ),
-                  Text(
-                    'categoria',
+                  Container(
+
+                    height: 30,
+                    child: Text( 
+                    descCorta,
                     style: TextStyle(fontFamily: 'GilroyL', fontSize: 10),
+                    maxLines:2,
+                    overflow: TextOverflow.ellipsis,
                   ),
+                  )
                 ],
               ),
             )

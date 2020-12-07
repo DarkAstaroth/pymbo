@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttericon/typicons_icons.dart';
+import 'package:pymbo/src/bloc/evento_bloc/evento_bloc.dart';
+import 'package:pymbo/src/bloc/evento_bloc/evento_state.dart';
+import 'package:pymbo/src/models/evento_model.dart';
 import 'package:pymbo/src/ui/eventos/event_card.dart';
 
 class EventScreen extends StatefulWidget {
@@ -10,6 +14,7 @@ class EventScreen extends StatefulWidget {
 }
 
 class _EventScreenState extends State<EventScreen> {
+  List<Evento> eventoList = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,21 +41,29 @@ class _EventScreenState extends State<EventScreen> {
                   ),
                 )),
             Expanded(
-              child: ListView(
-                children: [
-                  EventCard(),
-                  Divider(),
-                  EventCard(),
-                  Divider(),
-                  EventCard(),
-                  Divider(),
-                  EventCard(),
-                  Divider(),
-                  EventCard(),
-                  Divider(),
-                  EventCard(),
-                ],
-              ),
+              child: BlocBuilder<EventoBloc,EventoState>(
+                builder: (context,state){
+                  if (state is EventoLoading) {
+                    return Center(child: CircularProgressIndicator(),);
+                  }
+                  if (state is EventoNoLoaded) {
+                    return Center(child: CircularProgressIndicator(),);
+                  }
+                  if (state is EventoLoaded) {
+                    eventoList = state.eventos;
+                    return ListView.builder(
+                      itemCount: eventoList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                      return EventCard(
+                        fotoEvento : eventoList[index].fotoCartel,
+                        tituloEvento : eventoList[index].tituloEvento,
+                        desc : eventoList[index].desc,
+                        precio : eventoList[index].precio
+                      );
+                     },
+                    );
+                  }
+              })
             )
           ],
         )));

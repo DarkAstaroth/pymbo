@@ -1,6 +1,8 @@
+import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pymbo/src/bloc/categoria_bloc/categoria_bloc.dart';
+import 'package:pymbo/src/bloc/categoria_bloc/categoria_event.dart';
 import 'package:pymbo/src/bloc/categoria_bloc/categoria_state.dart';
 import 'package:pymbo/src/models/categoria_model.dart';
 import 'package:pymbo/src/ui/admin_pages/categorias/formulario_categoria.dart';
@@ -93,8 +95,28 @@ class _CategoriaListScreenState extends State<CategoriaListScreen> {
                               Icons.more_vert,
                               color: Color(0XFFE63946),
                             ),
+                            onSelected: (result) {
+                              if (result == '1') {
+                                
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return FormularioCategoria(
+                                        id: categoriaList[index].id,
+                                        nombreCategoria: categoriaList[index].nombreCategoria,
+                                        isUpdate: true
+                                      );
+                                    });
+                              }
+                              if (result == '2') {
+                                _showMessageDeleted();
+                                BlocProvider.of<CategoriaBloc>(context).add(
+                                    CategoriaDeleted(categoriaList[index].id));
+                              }
+                            },
                             itemBuilder: (context) => [
                                   PopupMenuItem(
+                                      value: "1",
                                       height: 25,
                                       child: Text(
                                         "Editar",
@@ -103,13 +125,14 @@ class _CategoriaListScreenState extends State<CategoriaListScreen> {
                                             fontSize: 13),
                                       )),
                                   PopupMenuItem(
-                                      height: 25,
-                                      child: Text(
-                                        "Eliminar",
-                                        style: TextStyle(
-                                            fontFamily: 'GilroyB',
-                                            fontSize: 13),
-                                      )),
+                                    value: "2",
+                                    height: 25,
+                                    child: Text(
+                                      "Eliminar",
+                                      style: TextStyle(
+                                          fontFamily: 'GilroyB', fontSize: 13),
+                                    ),
+                                  ),
                                 ])
                       ],
                     ),
@@ -119,5 +142,31 @@ class _CategoriaListScreenState extends State<CategoriaListScreen> {
             );
           }
         }));
+  }
+
+  void _showMessageDeleted({
+    Duration duration,
+    flashStyle = FlashStyle.floating,
+  }) {
+    showFlash(
+      context: context,
+      duration: Duration(seconds: 2),
+      builder: (context, controller) {
+        return Flash(
+          backgroundColor: Color(0XFFE63946),
+          position: FlashPosition.bottom,
+          controller: controller,
+          style: flashStyle,
+          boxShadows: kElevationToShadow[4],
+          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
+          child: FlashBar(
+            message: Text(
+              'Categoria Eliminada con exito',
+              style: TextStyle(color: Colors.white, fontFamily: 'GilroyB'),
+            ),
+          ),
+        );
+      },
+    );
   }
 }

@@ -7,6 +7,7 @@ import 'package:pymbo/src/models/negocio_model.dart';
 
 class CategoriaRepository {
   final dataBaseReference = Firestore.instance.collection('categorias');
+  final dataBaseReferenceNegocio = Firestore.instance.collection('negocios');
 
   Stream<List<Categoria>> getCategorias() {
     return dataBaseReference.snapshots().map((snapshot) {
@@ -14,6 +15,17 @@ class CategoriaRepository {
           .map((doc) => Categoria.fromSnapshot(doc))
           .toList();
     });
+  }
+   
+   Future<void> deleteCategoria(String id) async{
+    await dataBaseReference.document(id).delete();
+  }
+
+  Future<void> updateCategoria(String id,String nombreCategoria) async{
+    await dataBaseReference.document(id).updateData({
+      "nombreCategoria": nombreCategoria 
+    });
+
   }
 
   Future<void> putCategoria(

@@ -1,7 +1,14 @@
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_page_indicator/flutter_page_indicator.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:pymbo/src/bloc/anuncio_bloc/anuncio_bloc.dart';
+import 'package:pymbo/src/bloc/anuncio_bloc/anuncio_state.dart';
+import 'package:pymbo/src/bloc/negocio_bloc/negocio_bloc.dart';
+import 'package:pymbo/src/bloc/negocio_bloc/negocio_state.dart';
+import 'package:pymbo/src/models/anuncio_model.dart';
+import 'package:pymbo/src/models/negocio_model.dart';
 import 'package:pymbo/src/service/admod_service.dart';
 import 'package:pymbo/src/ui/principal/banner_widget.dart';
 import 'package:pymbo/src/ui/principal/card_negocio_widget.dart';
@@ -15,12 +22,14 @@ class PrincipalScreen extends StatefulWidget {
 
 class _PrincipalScreenState extends State<PrincipalScreen> {
   final ams = AdmodService();
-
-  List<dynamic> images =[
-     NetworkImage('https://firebasestorage.googleapis.com/v0/b/pymbo-4e8d4.appspot.com/o/BannerHome%2Fslide1.jpg?alt=media&token=af7bf6ca-58f7-4f97-9e74-8360234eaf7f'),
-     NetworkImage('https://firebasestorage.googleapis.com/v0/b/pymbo-4e8d4.appspot.com/o/BannerHome%2Fslide2.jpg?alt=media&token=7567cbbe-a159-4b69-a0cd-6b64b6a67bbf'),
-     NetworkImage('https://firebasestorage.googleapis.com/v0/b/pymbo-4e8d4.appspot.com/o/BannerHome%2Fslide3.jpg?alt=media&token=3478257a-cde5-4503-a330-5ea2e39df6c5')
-
+  bool headers = true;
+  List<dynamic> images = [
+    NetworkImage(
+        'https://firebasestorage.googleapis.com/v0/b/pymbo-4e8d4.appspot.com/o/BannerHome%2Fslide1.jpg?alt=media&token=af7bf6ca-58f7-4f97-9e74-8360234eaf7f'),
+    NetworkImage(
+        'https://firebasestorage.googleapis.com/v0/b/pymbo-4e8d4.appspot.com/o/BannerHome%2Fslide2.jpg?alt=media&token=7567cbbe-a159-4b69-a0cd-6b64b6a67bbf'),
+    NetworkImage(
+        'https://firebasestorage.googleapis.com/v0/b/pymbo-4e8d4.appspot.com/o/BannerHome%2Fslide3.jpg?alt=media&token=3478257a-cde5-4503-a330-5ea2e39df6c5')
   ];
 
   @override
@@ -32,6 +41,9 @@ class _PrincipalScreenState extends State<PrincipalScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<Anuncio> anuncioList = [];
+
+
     return Scaffold(
         backgroundColor: Color(0XFFF1FAEE),
         body: Column(
@@ -43,29 +55,37 @@ class _PrincipalScreenState extends State<PrincipalScreen> {
             ),
             Expanded(
                 child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: ListView(
-                children: [
-                  CategoriaWidget(),
-                  RecomendadoWidget(),
-                  BannerWidget(),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'Explora más negocios',
-                    style: TextStyle(fontFamily: 'GilroyB'),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  CardNegocioWidget(),
-                  CardNegocioWidget(),
-                  CardNegocioWidget(),
-                  CardNegocioWidget(),
-                ],
-              ),
-            ))
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: BlocBuilder<AnuncioBloc, AnuncioState>(
+                        builder: (context, state) {
+                      if (state is AnuncioLoading) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      if (state is AnuncioNoLoaded) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      if (state is AnuncioLoaded) {
+                        anuncioList = state.anuncios;
+
+                        return ListView.builder(
+                            itemCount: anuncioList.length,
+                            itemBuilder: (_, int index) {
+                              return Column(
+                                children: [
+                                  index == 0 ? getHeaders() : Container(),
+                                  CardNegocioWidget(
+                                      fotoAnuncio:
+                                          anuncioList[index].fotoAnuncio,
+                                      descLarga: anuncioList[index].desclarga)
+                                ],
+                              );
+                            });
+                      }
+                    })))
           ],
         ));
   }
@@ -76,7 +96,7 @@ class _PrincipalScreenState extends State<PrincipalScreen> {
         return ClipRect(
           child: FadeInImage(
             placeholder: AssetImage('assets/img/load-app-render.gif'),
-            image:images[index],
+            image: images[index],
             fit: BoxFit.cover,
           ),
         );
@@ -89,10 +109,25 @@ class _PrincipalScreenState extends State<PrincipalScreen> {
     );
   }
 
+  Widget getHeaders() {
+    //headers = false;
 
-
-
-
-
-  
+    return Column(
+      children: [
+        CategoriaWidget(),
+        RecomendadoWidget(),
+        BannerWidget(),
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          'Explora más negocios',
+          style: TextStyle(fontFamily: 'GilroyB'),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+      ],
+    );
+  }
 }

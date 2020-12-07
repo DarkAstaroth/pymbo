@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CardNegocioWidget extends StatelessWidget {
+  final String fotoAnuncio;
+  final String descLarga;
+
+  const CardNegocioWidget({Key key, this.fotoAnuncio, this.descLarga}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return  Padding(
@@ -20,72 +24,95 @@ class CardNegocioWidget extends StatelessWidget {
                 ),
               ],
             ),
-            height: 340,
+            height: 350,
+            width: double.infinity,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
+                  height: 250,
+                  width: double.infinity,
+                  
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(5),
                             topRight: Radius.circular(5))),
                     child: ClipRRect(
+                      
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(5),
                           topRight: Radius.circular(5)),
-                      child: Image(image: AssetImage('assets/img/yuriña1.jpg')),
+                      child: FadeInImage(
+                        fit: BoxFit.cover,
+                        placeholder: AssetImage('assets/img/load-app-render.gif'), 
+                        image: NetworkImage(fotoAnuncio))
                     )),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                image: AssetImage('assets/img/yuriña2.jpg'))),
-                      ),
-                      Expanded(
-                        child: ListTile(
-                          title: Text(
-                            'Yuriña -  tejidos con altura',
-                            style: TextStyle(fontFamily: 'GilroyB'),
-                          ),
-                          subtitle: Row(
-                            children: [
-                              Icon(
-                                Icons.star,
-                                size: 10,
-                                color: Color(0XFFFFC600),
-                              ),
-                              Icon(
-                                Icons.star,
-                                size: 10,
-                                color: Color(0XFFFFC600),
-                              ),
-                              Icon(
-                                Icons.star,
-                                size: 10,
-                                color: Color(0XFFFFC600),
-                              ),
-                              Icon(
-                                Icons.star,
-                                size: 10,
-                                color: Color(0XFFFFC600),
-                              ),
-                              Icon(
-                                Icons.star_border,
-                                size: 10,
-                                color: Color(0XFFFFC600),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                    Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10,top: 20),
+                  child: Text("Descripcion",style: TextStyle(fontFamily: 'GilroyB'),textAlign: TextAlign.left,),
                   ),
-                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10,top: 0),
+                  child: Container(
+                    child: Text(descLarga,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    style: TextStyle(fontFamily: 'GilroyL'),
+                    textAlign: TextAlign.left,),
+                  ),
+                  )
+                // Padding(
+                //   padding: const EdgeInsets.only(left: 10, right: 10),
+                //   child: Row(
+                //     children: [
+                //       Container(
+                //         width: 60,
+                //         height: 60,
+                //         decoration: BoxDecoration(
+                //             shape: BoxShape.circle,
+                //             image: DecorationImage(
+                //                 image: AssetImage('assets/img/yuriña2.jpg'))),
+                //       ),
+                //       Expanded(
+                //         child: ListTile(
+                //           title: Text(
+                //             'Yuriña -  tejidos con altura',
+                //             style: TextStyle(fontFamily: 'GilroyB'),
+                //           ),
+                //           subtitle: Row(
+                //             children: [
+                //               Icon(
+                //                 Icons.star,
+                //                 size: 10,
+                //                 color: Color(0XFFFFC600),
+                //               ),
+                //               Icon(
+                //                 Icons.star,
+                //                 size: 10,
+                //                 color: Color(0XFFFFC600),
+                //               ),
+                //               Icon(
+                //                 Icons.star,
+                //                 size: 10,
+                //                 color: Color(0XFFFFC600),
+                //               ),
+                //               Icon(
+                //                 Icons.star,
+                //                 size: 10,
+                //                 color: Color(0XFFFFC600),
+                //               ),
+                //               Icon(
+                //                 Icons.star_border,
+                //                 size: 10,
+                //                 color: Color(0XFFFFC600),
+                //               )
+                //             ],
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),
