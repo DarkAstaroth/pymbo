@@ -58,7 +58,7 @@ class _PerfilEventoState extends State<PerfilEvento> {
               );
             }
             if (state is EventoLoaded) {
-              
+              eventoList = [];
               for (var i = 0; i < state.eventos.length; i++) {
                 if (state.eventos[i].idNegocio == widget.negocio.id) {
                   eventoList.add(state.eventos[i]);

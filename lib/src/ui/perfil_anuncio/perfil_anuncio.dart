@@ -23,6 +23,7 @@ class _PerfilAnuncioState extends State<PerfilAnuncio> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       floatingActionButton: FloatingActionButton(
           backgroundColor: Color(0XFFE63946),
@@ -58,6 +59,7 @@ class _PerfilAnuncioState extends State<PerfilAnuncio> {
               );
             }
             if (state is AnuncioLoaded) {
+              anuncioList = [];
               for (var i = 0; i < state.anuncios.length; i++) {
                 if (state.anuncios[i].idNegocio == widget.negocio.id) {
                   anuncioList.add(state.anuncios[i]);

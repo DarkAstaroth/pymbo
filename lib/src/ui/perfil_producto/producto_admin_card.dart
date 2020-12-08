@@ -3,16 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pymbo/src/bloc/producto_bloc/producto_bloc.dart';
 import 'package:pymbo/src/bloc/producto_bloc/producto_event.dart';
+import 'package:pymbo/src/ui/perfil_producto/crear_producto.dart';
 
 class ProductoAdminCard extends StatelessWidget {
   final String idProducto;
   final String nombre;
   final String imagenProducto;
-  final String desc;
+  final String descCorta;
+  final String descLarga;
+  final String precio;
+  final String stock;
 
   const ProductoAdminCard(
-      {Key key, this.idProducto,@required this.nombre, this.imagenProducto, this.desc})
+      {Key key,
+      this.idProducto,
+      this.nombre,
+      this.imagenProducto,
+      this.descCorta,
+      this.descLarga,
+      this.precio,
+      this.stock})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -63,7 +75,7 @@ class ProductoAdminCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 5),
                       child: Text(
-                        desc,
+                        descCorta,
                         style: TextStyle(fontFamily: 'GilroyL'),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
@@ -81,24 +93,40 @@ class ProductoAdminCard extends StatelessWidget {
                 ),
                 onSelected: (result) {
                   if (result == '1') {}
-                  if (result == '2') {}
+                  if (result == '2') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CrearProducto(
+                                idProducto: idProducto,
+                                nombreProducto: nombre,
+                                imagenProductoD: imagenProducto,
+                                descCorta: descCorta,
+                                descLarga: descLarga,
+                                precio: precio,
+                                stock: stock,
+                                isUpdate: true,
+                              )),
+                    );
+                  }
                   if (result == '3') {
-                    _showMessage(context,"Categoria eliminada con exito!",Color(0XFFE63946));
+                    _showMessage(context, "Categoria eliminada con exito!",
+                        Color(0XFFE63946));
                     BlocProvider.of<ProductoBloc>(context)
                         .add(ProductoDeleted(idProducto));
                   }
                 },
                 itemBuilder: (context) => [
+                      // PopupMenuItem(
+                      //     value: '1',
+                      //     height: 25,
+                      //     child: Text(
+                      //       "Ver",
+                      //       style:
+                      //           TextStyle(fontFamily: 'GilroyB', fontSize: 13),
+                      //     )),
                       PopupMenuItem(
-                          value: '1',
-                          height: 25,
-                          child: Text(
-                            "Ver",
-                            style:
-                                TextStyle(fontFamily: 'GilroyB', fontSize: 13),
-                          )),
-                      PopupMenuItem(
-                        value: "2",
+                          value: "2",
                           height: 25,
                           child: Text(
                             "Editar",
@@ -106,7 +134,7 @@ class ProductoAdminCard extends StatelessWidget {
                                 TextStyle(fontFamily: 'GilroyB', fontSize: 13),
                           )),
                       PopupMenuItem(
-                        value: "3",
+                          value: "3",
                           height: 25,
                           child: Text(
                             "Eliminar",
@@ -120,7 +148,7 @@ class ProductoAdminCard extends StatelessWidget {
     );
   }
 
-  void _showMessage(BuildContext context,String mensaje,Color color) {
+  void _showMessage(BuildContext context, String mensaje, Color color) {
     showFlash(
       context: context,
       duration: Duration(seconds: 2),

@@ -22,15 +22,18 @@ class ProductoRepository {
   Future<void> updateProducto(
       String id,
       String nombreProducto,
-      String fotoProducto,
+      //File fotoProducto,
       String descCorta,
       String descLarga,
       String precio,
       String stock
     ) async{
+    
+    
+
     await dataBaseReference.document(id).updateData({
       'nombreProducto': nombreProducto,
-      'fotoProducto': fotoProducto,
+      //'fotoProducto': productoUrl,
       'descCorta': descCorta,
       'descLarga': descLarga,
       'precio': precio,

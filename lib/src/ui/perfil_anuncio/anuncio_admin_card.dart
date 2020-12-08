@@ -73,7 +73,9 @@ class AnuncioAdminCard extends StatelessWidget {
                 ),
                 onSelected: (result) {
                   if (result == '1') {}
-                  if (result == '2') {}
+                  if (result == '2') {
+                    
+                  }
                   if (result == '3') {
                     _showMessage(context, "Anuncio eliminado con exito!",
                         Color(0XFFE63946));
@@ -82,14 +84,14 @@ class AnuncioAdminCard extends StatelessWidget {
                   }
                 },
                 itemBuilder: (context) => [
-                      PopupMenuItem(
-                          value: '1',
-                          height: 25,
-                          child: Text(
-                            "Ver",
-                            style:
-                                TextStyle(fontFamily: 'GilroyB', fontSize: 13),
-                          )),
+                      // PopupMenuItem(
+                      //     value: '1',
+                      //     height: 25,
+                      //     child: Text(
+                      //       "Ver",
+                      //       style:
+                      //           TextStyle(fontFamily: 'GilroyB', fontSize: 13),
+                      //     )),
                       PopupMenuItem(
                           value: "2",
                           height: 25,

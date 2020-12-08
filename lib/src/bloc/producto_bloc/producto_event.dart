@@ -73,17 +73,17 @@ class ProductoUpdatedDB extends ProductoEvent{
 
   final String idProducto;
   final String nombreProducto;
-  final String fotoProducto;
+  //final File fotoProducto;
   final String descCorta;
   final String descLarga;
   final String precio;
   final String stock;
 
-  const ProductoUpdatedDB(this.idProducto, this.nombreProducto, this.fotoProducto, this.descCorta, this.descLarga, this.precio, this.stock);@override
+  const ProductoUpdatedDB(this.idProducto, this.nombreProducto, this.descCorta, this.descLarga, this.precio, this.stock);@override
   List<Object> get props => [
   idProducto,
   nombreProducto,
-  fotoProducto,
+  //fotoProducto,
   descCorta,
   descLarga,
   precio,

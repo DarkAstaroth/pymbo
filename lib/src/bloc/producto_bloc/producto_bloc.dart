@@ -73,7 +73,7 @@ class ProductoBloc extends Bloc<ProductoEvent, ProductoState> {
     await _productoRepository.updateProducto(
         event.idProducto,
         event.nombreProducto,
-        event.fotoProducto,
+        //event.fotoProducto,
         event.descCorta,
         event.descLarga,
         event.precio,

@@ -55,6 +55,7 @@ class _PerfilProductoState extends State<PerfilProducto> {
               );
             }
             if (state is ProductoLoaded) {
+              productoList = [];
               for (var i = 0; i < state.productos.length; i++) {
                 if (state.productos[i].idNegocio == widget.negocio.id) {
                   productoList.add(state.productos[i]);
@@ -73,8 +74,12 @@ class _PerfilProductoState extends State<PerfilProducto> {
                       idProducto: productoList[index].idProducto,
                       nombre: productoList[index].nombreProducto,
                       imagenProducto : productoList[index].fotoProducto,
-                      desc : productoList[index].descCorta
+                      descCorta : productoList[index].descCorta,
+                      descLarga : productoList[index].descLarga,
+                      precio : productoList[index].precio,
+                      stock : productoList[index].stock,
                       );
+                      
                   },
                 )
               );
@@ -83,5 +88,7 @@ class _PerfilProductoState extends State<PerfilProducto> {
         ],
       ),
     );
+
+
   }
 }

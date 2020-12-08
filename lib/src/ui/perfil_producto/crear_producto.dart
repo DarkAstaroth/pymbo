@@ -5,24 +5,47 @@ import 'package:pymbo/src/models/negocio_model.dart';
 import 'package:pymbo/src/ui/perfil_producto/formulario_producto.dart';
 
 class CrearProducto extends StatefulWidget {
-      final Negocio negocio;
+  final Negocio negocio;
+  final String idProducto;
+  final String nombreProducto;
+  final String imagenProductoD;
+  final String descCorta;
+  final String descLarga;
+  final String precio;
+  final String stock;
+  final bool isUpdate;
 
-  const CrearProducto({Key key, @required this.negocio}) : super(key: key);
+  const CrearProducto(
+      {Key key,
+      this.negocio,
+      this.idProducto,
+      this.nombreProducto,
+      this.imagenProductoD,
+      this.descCorta,
+      this.descLarga,
+      this.precio,
+      this.stock,
+      this.isUpdate})
+      : super(key: key);
+
   @override
   _CrearProductoState createState() => _CrearProductoState();
 }
 
 class _CrearProductoState extends State<CrearProducto> {
-
   File productoImage;
 
   @override
   Widget build(BuildContext context) {
+    bool stateForm = widget.isUpdate;
+    if (stateForm == null) {
+      stateForm = false;
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0XFF1D3557),
         title: Text(
-          "Nuevo Producto",
+          stateForm ? "Modificar Producto" : "Nuevo Producto",
           style: TextStyle(fontFamily: 'GilroyB'),
         ),
       ),
@@ -39,15 +62,31 @@ class _CrearProductoState extends State<CrearProducto> {
                   child: Stack(
                     children: [
                       productoImage == null
-                          ? Container(
-                              width: double.infinity,
-                              height: 300,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/img/no-photo-perfil.jpg'),
-                                      fit: BoxFit.cover)),
-                            )
+                          ? stateForm
+                              ? Container(
+                                  width: double.infinity,
+                                  height: 300,
+                                  color: Colors.white,
+                                  child: ClipRRect(
+                                    child: FadeInImage(
+                                        fit: BoxFit.cover,
+                                        placeholder: AssetImage(
+                                            "assets/img/load-app-render.gif"),
+                                        image: NetworkImage(
+                                            widget.imagenProductoD
+                                            )
+                                            ),
+                                  ),
+                                )
+                              : Container(
+                                  width: double.infinity,
+                                  height: 300,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              'assets/img/no-photo-perfil.jpg'),
+                                          fit: BoxFit.cover)),
+                                )
                           : Container(
                               width: double.infinity,
                               height: 300,
@@ -86,22 +125,27 @@ class _CrearProductoState extends State<CrearProducto> {
                       ),
                     ],
                   )),
-
             ],
           ),
           Padding(
               padding: const EdgeInsets.all(15),
               child: FormularioProducto(
-                negocio:widget.negocio,
-                productoImage: productoImage
-                )
-                  )
+                negocio: widget.negocio,
+                idProducto: widget.idProducto,
+                productoImage: productoImage,
+                nombreProducto: widget.nombreProducto,
+                descCorta: widget.descCorta,
+                descLarga: widget.descLarga,
+                precio: widget.precio,
+                stock: widget.stock,
+                isUpdate: widget.isUpdate,
+              ))
         ],
       ),
     );
   }
 
-    Future getProductoImage() async {
+  Future getProductoImage() async {
     var tempimage = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
       productoImage = tempimage;

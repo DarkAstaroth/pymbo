@@ -8,10 +8,28 @@ import 'package:pymbo/src/models/negocio_model.dart';
 
 class FormularioProducto extends StatefulWidget {
   final Negocio negocio;
+  final String idProducto;
   final File productoImage;
+  final String nombreProducto;
+  final String descCorta;
+  final String descLarga;
+  final String precio;
+  final String stock;
+  final bool isUpdate;
 
-  const FormularioProducto({Key key, this.negocio, this.productoImage})
+  const FormularioProducto(
+      {Key key,
+      this.negocio,
+      this.idProducto,
+      this.productoImage,
+      this.nombreProducto,
+      this.descCorta,
+      this.descLarga,
+      this.precio,
+      this.stock,
+      this.isUpdate})
       : super(key: key);
+
   @override
   _FormularioProductoState createState() => _FormularioProductoState();
 }
@@ -27,6 +45,10 @@ class _FormularioProductoState extends State<FormularioProducto> {
 
   @override
   Widget build(BuildContext context) {
+    bool stateForm = widget.isUpdate;
+    if (stateForm == null) {
+      stateForm = false;
+    }
     return Form(
       key: formKey,
       child: Column(
@@ -34,6 +56,7 @@ class _FormularioProductoState extends State<FormularioProducto> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              initialValue: stateForm ? widget.nombreProducto : "",
               textCapitalization: TextCapitalization.sentences,
               style: TextStyle(fontFamily: 'GilroyB'),
               decoration: InputDecoration(
@@ -60,6 +83,7 @@ class _FormularioProductoState extends State<FormularioProducto> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              initialValue: stateForm ? widget.descCorta : "",
               textCapitalization: TextCapitalization.sentences,
               style: TextStyle(fontFamily: 'GilroyL'),
               decoration: InputDecoration(
@@ -86,6 +110,7 @@ class _FormularioProductoState extends State<FormularioProducto> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              initialValue: stateForm ? widget.descLarga : "",
               textCapitalization: TextCapitalization.sentences,
               maxLines: 5,
               style: TextStyle(fontFamily: 'GilroyL'),
@@ -113,6 +138,7 @@ class _FormularioProductoState extends State<FormularioProducto> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              initialValue: stateForm ? widget.precio : "",
               textCapitalization: TextCapitalization.sentences,
               style: TextStyle(fontFamily: 'GilroyL'),
               decoration: InputDecoration(
@@ -139,6 +165,7 @@ class _FormularioProductoState extends State<FormularioProducto> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              initialValue: stateForm ? widget.stock : "",
               textCapitalization: TextCapitalization.sentences,
               style: TextStyle(fontFamily: 'GilroyL'),
               decoration: InputDecoration(
@@ -171,7 +198,21 @@ class _FormularioProductoState extends State<FormularioProducto> {
                 color: Color(0xFFE63946),
                 elevation: 0,
                 onPressed: () {
-                  _showMessage(context, "Categoria eliminada con exito!",
+                  if (stateForm) {
+                    _showMessage(context, "Producto modificado con exito!",
+                      Colors.green);
+                  BlocProvider.of<ProductoBloc>(context).add(ProductoUpdatedDB(
+                      widget.idProducto,
+                      nombreProducto == null ?widget.nombreProducto : nombreProducto ,
+                      //widget.productoImage,
+                      descCorta == null ? widget.descCorta:descCorta,
+                      descLarga == null ?widget.descLarga: descLarga,
+                      precio == null ? widget.precio:precio,
+                      stock == null ? widget.stock:stock
+                      ));
+                  Navigator.pop(context);
+                  }else{
+                    _showMessage(context, "Producto eliminada con exito!",
                       Color(0XFFE63946));
                   BlocProvider.of<ProductoBloc>(context).add(AddProducto(
                       widget.negocio.id,
@@ -182,6 +223,7 @@ class _FormularioProductoState extends State<FormularioProducto> {
                       precio,
                       stock));
                   Navigator.pop(context);
+                  }
                 },
                 child: Text(
                   'Guardar Cambios ',
@@ -193,6 +235,8 @@ class _FormularioProductoState extends State<FormularioProducto> {
         ],
       ),
     );
+
+
   }
 
   void _showMessage(BuildContext context, String mensaje, Color color) {
