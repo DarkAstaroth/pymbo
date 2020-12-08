@@ -14,8 +14,16 @@ class FormularioAnuncio extends StatefulWidget {
   final Negocio negocio;
   final File imagenAnuncio;
 
-  const FormularioAnuncio({Key key, this.negocio, this.imagenAnuncio})
-      : super(key: key);
+  final String idAnuncio;
+  final String descCorta;
+  final String descLarga;
+  final String fechaInicio;
+  final String fechaFin;
+  final bool isUpdate;
+
+  const FormularioAnuncio({Key key, this.idAnuncio,this.negocio, this.imagenAnuncio, this.descCorta, this.descLarga, this.fechaInicio, this.fechaFin, this.isUpdate}) : super(key: key);
+
+
 
   @override
   _FormularioAnuncioState createState() => _FormularioAnuncioState();
@@ -38,6 +46,15 @@ class _FormularioAnuncioState extends State<FormularioAnuncio> {
 
   @override
   Widget build(BuildContext context) {
+    
+    bool stateForm = widget.isUpdate;
+    if (stateForm == null) {
+      stateForm = false;
+    }else{
+      dateCtl.text = widget.fechaInicio;
+      dateCtl2.text = widget.fechaFin;
+    }
+
     return Form(
       key: formKey,
       child: Column(
@@ -45,6 +62,7 @@ class _FormularioAnuncioState extends State<FormularioAnuncio> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              initialValue: stateForm ? widget.descCorta : "",
               textCapitalization: TextCapitalization.sentences,
               style: TextStyle(fontFamily: 'GilroyB'),
               decoration: InputDecoration(
@@ -71,6 +89,7 @@ class _FormularioAnuncioState extends State<FormularioAnuncio> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              initialValue: stateForm ? widget.descLarga: "",
               textCapitalization: TextCapitalization.sentences,
               maxLines: 15,
               style: TextStyle(fontFamily: 'GilroyL'),
@@ -124,6 +143,7 @@ class _FormularioAnuncioState extends State<FormularioAnuncio> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              //initialValue: stateForm ? widget.fechaInicio : "",
               readOnly: true,
               controller: dateCtl,
               textCapitalization: TextCapitalization.sentences,
@@ -162,6 +182,7 @@ class _FormularioAnuncioState extends State<FormularioAnuncio> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              //initialValue: stateForm ? widget.fechaFin : "",
               readOnly: true,
               controller: dateCtl2,
               textCapitalization: TextCapitalization.sentences,
@@ -197,82 +218,82 @@ class _FormularioAnuncioState extends State<FormularioAnuncio> {
               },
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              controller: timeCtl,
-              readOnly: true,
-              textCapitalization: TextCapitalization.sentences,
-              style: TextStyle(fontFamily: 'GilroyL'),
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color(0xFF1D3557), width: 2.0)),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
-                labelText: 'Hora de inicio',
-                labelStyle:
-                    TextStyle(color: Color(0xFF1D3557), fontFamily: 'GilroyB'),
-                //suffixIcon: Icon(Icons.email, color: Color(0xFF1D3557)),
-              ),
-              onTap: () async {
-                final timePicked = await showRoundedTimePicker(
-                  context: context,
-                  background: Colors.white,
-                  fontFamily: 'GilroyB',
-                  theme: ThemeData(primarySwatch: Colors.blue),
-                  locale: Locale('en', 'US'),
-                  initialTime: TimeOfDay(hour: 12, minute: 0),
-                  borderRadius: 20,
-                );
-                final localizations1 = MaterialLocalizations.of(context);
-                final formattedTimeOfDay1 =
-                    localizations1.formatTimeOfDay(timePicked);
-                setState(() {
-                  timeCtl.text = formattedTimeOfDay1.toString();
-                  horaInicio = formattedTimeOfDay1.toString();
-                });
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
-              controller: timeCtl2,
-              readOnly: true,
-              textCapitalization: TextCapitalization.sentences,
-              style: TextStyle(fontFamily: 'GilroyL'),
-              decoration: InputDecoration(
-                focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: Color(0xFF1D3557), width: 2.0)),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0)),
-                labelText: 'Hora final',
-                labelStyle:
-                    TextStyle(color: Color(0xFF1D3557), fontFamily: 'GilroyB'),
-                //suffixIcon: Icon(Icons.email, color: Color(0xFF1D3557)),
-              ),
-              onTap: () async {
-                final timePicked = await showRoundedTimePicker(
-                  context: context,
-                  background: Colors.white,
-                  fontFamily: 'GilroyB',
-                  theme: ThemeData(primarySwatch: Colors.blue),
-                  locale: Locale('en', 'US'),
-                  initialTime: TimeOfDay(hour: 12, minute: 0),
-                  borderRadius: 20,
-                );
-                final localizations2 = MaterialLocalizations.of(context);
-                final formattedTimeOfDay2 =
-                    localizations2.formatTimeOfDay(timePicked);
-                setState(() {
-                  timeCtl2.text = formattedTimeOfDay2.toString();
-                  horaFin = formattedTimeOfDay2.toString();
-                });
-              },
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: TextFormField(
+          //     controller: timeCtl,
+          //     readOnly: true,
+          //     textCapitalization: TextCapitalization.sentences,
+          //     style: TextStyle(fontFamily: 'GilroyL'),
+          //     decoration: InputDecoration(
+          //       focusedBorder: OutlineInputBorder(
+          //           borderSide:
+          //               BorderSide(color: Color(0xFF1D3557), width: 2.0)),
+          //       border: OutlineInputBorder(
+          //           borderRadius: BorderRadius.circular(5.0)),
+          //       labelText: 'Hora de inicio',
+          //       labelStyle:
+          //           TextStyle(color: Color(0xFF1D3557), fontFamily: 'GilroyB'),
+          //       //suffixIcon: Icon(Icons.email, color: Color(0xFF1D3557)),
+          //     ),
+          //     onTap: () async {
+          //       final timePicked = await showRoundedTimePicker(
+          //         context: context,
+          //         background: Colors.white,
+          //         fontFamily: 'GilroyB',
+          //         theme: ThemeData(primarySwatch: Colors.blue),
+          //         locale: Locale('en', 'US'),
+          //         initialTime: TimeOfDay(hour: 12, minute: 0),
+          //         borderRadius: 20,
+          //       );
+          //       final localizations1 = MaterialLocalizations.of(context);
+          //       final formattedTimeOfDay1 =
+          //           localizations1.formatTimeOfDay(timePicked);
+          //       setState(() {
+          //         timeCtl.text = formattedTimeOfDay1.toString();
+          //         horaInicio = formattedTimeOfDay1.toString();
+          //       });
+          //     },
+          //   ),
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.all(8.0),
+          //   child: TextFormField(
+          //     controller: timeCtl2,
+          //     readOnly: true,
+          //     textCapitalization: TextCapitalization.sentences,
+          //     style: TextStyle(fontFamily: 'GilroyL'),
+          //     decoration: InputDecoration(
+          //       focusedBorder: OutlineInputBorder(
+          //           borderSide:
+          //               BorderSide(color: Color(0xFF1D3557), width: 2.0)),
+          //       border: OutlineInputBorder(
+          //           borderRadius: BorderRadius.circular(5.0)),
+          //       labelText: 'Hora final',
+          //       labelStyle:
+          //           TextStyle(color: Color(0xFF1D3557), fontFamily: 'GilroyB'),
+          //       //suffixIcon: Icon(Icons.email, color: Color(0xFF1D3557)),
+          //     ),
+          //     onTap: () async {
+          //       final timePicked = await showRoundedTimePicker(
+          //         context: context,
+          //         background: Colors.white,
+          //         fontFamily: 'GilroyB',
+          //         theme: ThemeData(primarySwatch: Colors.blue),
+          //         locale: Locale('en', 'US'),
+          //         initialTime: TimeOfDay(hour: 12, minute: 0),
+          //         borderRadius: 20,
+          //       );
+          //       final localizations2 = MaterialLocalizations.of(context);
+          //       final formattedTimeOfDay2 =
+          //           localizations2.formatTimeOfDay(timePicked);
+          //       setState(() {
+          //         timeCtl2.text = formattedTimeOfDay2.toString();
+          //         horaFin = formattedTimeOfDay2.toString();
+          //       });
+          //     },
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ButtonTheme(
@@ -282,7 +303,19 @@ class _FormularioAnuncioState extends State<FormularioAnuncio> {
                 color: Color(0xFFE63946),
                 elevation: 0,
                 onPressed: () {
-                  _showMessage(
+                  if (stateForm) {
+                    _showMessage(
+                      context, "Anuncio modificado con exito!", Colors.green);
+                  BlocProvider.of<AnuncioBloc>(context).add(AnuncioUpdatedDB(
+                      widget.idAnuncio,
+                      fechaInicio == null ? widget.fechaInicio : fechaInicio,
+                      fechaFin == null ? widget.fechaFin : fechaFin,
+                      descCorta == null ? widget.descCorta : descCorta,
+                      descLarga== null ? widget.descLarga: descLarga,
+                      ));
+                  Navigator.pop(context);
+                  } else {
+                    _showMessage(
                       context, "Anuncio eliminado con exito!", Colors.green);
                   BlocProvider.of<AnuncioBloc>(context).add(AddAnuncio(
                       widget.imagenAnuncio,
@@ -293,6 +326,7 @@ class _FormularioAnuncioState extends State<FormularioAnuncio> {
                       descCorta,
                       descLarga));
                   Navigator.pop(context);
+                  }
                 },
                 child: Text(
                   'Guardar Cambios ',

@@ -3,15 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pymbo/src/bloc/anuncio_bloc/anuncio_bloc.dart';
 import 'package:pymbo/src/bloc/anuncio_bloc/anuncio_event.dart';
+import 'package:pymbo/src/ui/perfil_anuncio/crear_anuncio.dart';
 
 class AnuncioAdminCard extends StatelessWidget {
   final String idAnuncio;
-  final String descLarga;
   final String fotoAnuncio;
+  final String descCorta;
+  final String descLarga;
+  final String fechaInicio;
+  final String fechaFin;
 
-  const AnuncioAdminCard(
-      {Key key, this.idAnuncio, this.descLarga, this.fotoAnuncio})
-      : super(key: key);
+  const AnuncioAdminCard({Key key, this.idAnuncio, this.fotoAnuncio, this.descCorta, this.descLarga, this.fechaInicio, this.fechaFin}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +77,19 @@ class AnuncioAdminCard extends StatelessWidget {
                 onSelected: (result) {
                   if (result == '1') {}
                   if (result == '2') {
-                    
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CrearAnuncio(
+                                idAnuncio: idAnuncio,
+                                fotoAnuncio: fotoAnuncio,
+                                descCorta: descCorta,
+                                descLarga: descLarga,
+                                fechaInicio: fechaInicio,
+                                fechaFin: fechaFin,
+                                isUpdate: true,
+                              )),
+                    );
                   }
                   if (result == '3') {
                     _showMessage(context, "Anuncio eliminado con exito!",

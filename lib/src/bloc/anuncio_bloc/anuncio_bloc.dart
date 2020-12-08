@@ -71,7 +71,7 @@ class AnuncioBloc extends Bloc<AnuncioEvent, AnuncioState> {
     Stream<AnuncioState> _mapAnuncioUpdatedDBToState(AnuncioUpdatedDB event) async* {
      await _anuncioRepository.updateAnuncio(
       event.id,
-      event.anuncioUrl,
+      //event.anuncioUrl,
       event.fechaInicio,
       event.fechaFin,
       event.descCorta,

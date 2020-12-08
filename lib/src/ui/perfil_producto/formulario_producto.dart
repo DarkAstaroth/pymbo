@@ -45,6 +45,7 @@ class _FormularioProductoState extends State<FormularioProducto> {
 
   @override
   Widget build(BuildContext context) {
+    
     bool stateForm = widget.isUpdate;
     if (stateForm == null) {
       stateForm = false;

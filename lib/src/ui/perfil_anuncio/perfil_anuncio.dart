@@ -76,8 +76,12 @@ class _PerfilAnuncioState extends State<PerfilAnuncio> {
                   itemBuilder: (_, int index) {
                     return AnuncioAdminCard(
                       idAnuncio: anuncioList[index].idAnuncio,
-                      descLarga: anuncioList[index].desclarga,
                       fotoAnuncio : anuncioList[index].fotoAnuncio,
+                      descCorta: anuncioList[index].descCorta,
+                      descLarga: anuncioList[index].desclarga,
+                      fechaInicio: anuncioList[index].fechaInicio,
+                      fechaFin: anuncioList[index].fechaFin,
+
                       );
                   },
                 )

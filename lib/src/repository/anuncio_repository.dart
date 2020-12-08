@@ -21,14 +21,14 @@ class AnuncioRepository {
 
   Future<void> updateAnuncio(
     String id,
-    String anuncioUrl,
+    //String anuncioUrl,
     String fechaInicio,
     String fechaFin,
     String descCorta,
     String desclarga
     ) async{
     await dataBaseReference.document(id).updateData({
-      'fotoAnuncio': anuncioUrl,
+      //'fotoAnuncio': anuncioUrl,
       'fechaInicio': fechaInicio,
       'fechaFin': fechaFin,
       'descCorta': descCorta,
