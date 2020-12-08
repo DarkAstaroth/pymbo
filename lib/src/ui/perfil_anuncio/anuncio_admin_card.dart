@@ -1,12 +1,17 @@
+import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pymbo/src/bloc/anuncio_bloc/anuncio_bloc.dart';
+import 'package:pymbo/src/bloc/anuncio_bloc/anuncio_event.dart';
 
 class AnuncioAdminCard extends StatelessWidget {
-
+  final String idAnuncio;
   final String descLarga;
   final String fotoAnuncio;
 
-  const AnuncioAdminCard({Key key, this.descLarga, this.fotoAnuncio}) : super(key: key);
-
+  const AnuncioAdminCard(
+      {Key key, this.idAnuncio, this.descLarga, this.fotoAnuncio})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +41,9 @@ class AnuncioAdminCard extends StatelessWidget {
               height: 120,
               child: ClipRRect(
                 child: FadeInImage(
-                  fit: BoxFit.cover,
-                  placeholder: AssetImage("assets/img/load-app.gif"), 
-                  image: NetworkImage(fotoAnuncio)),
+                    fit: BoxFit.cover,
+                    placeholder: AssetImage("assets/img/load-app.gif"),
+                    image: NetworkImage(fotoAnuncio)),
               ),
             ),
             Expanded(
@@ -66,6 +71,16 @@ class AnuncioAdminCard extends StatelessWidget {
                   Icons.more_vert,
                   color: Color(0XFFE63946),
                 ),
+                onSelected: (result) {
+                  if (result == '1') {}
+                  if (result == '2') {}
+                  if (result == '3') {
+                    _showMessage(context, "Anuncio eliminado con exito!",
+                        Color(0XFFE63946));
+                    BlocProvider.of<AnuncioBloc>(context)
+                        .add(AnuncioDeleted(idAnuncio));
+                  }
+                },
                 itemBuilder: (context) => [
                       PopupMenuItem(
                           value: '1',
@@ -76,6 +91,7 @@ class AnuncioAdminCard extends StatelessWidget {
                                 TextStyle(fontFamily: 'GilroyB', fontSize: 13),
                           )),
                       PopupMenuItem(
+                          value: "2",
                           height: 25,
                           child: Text(
                             "Editar",
@@ -83,6 +99,7 @@ class AnuncioAdminCard extends StatelessWidget {
                                 TextStyle(fontFamily: 'GilroyB', fontSize: 13),
                           )),
                       PopupMenuItem(
+                          value: "3",
                           height: 25,
                           child: Text(
                             "Eliminar",
@@ -93,6 +110,29 @@ class AnuncioAdminCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _showMessage(BuildContext context, String mensaje, Color color) {
+    showFlash(
+      context: context,
+      duration: Duration(seconds: 2),
+      builder: (context, controller) {
+        return Flash(
+          backgroundColor: color,
+          position: FlashPosition.bottom,
+          controller: controller,
+          style: FlashStyle.floating,
+          boxShadows: kElevationToShadow[4],
+          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
+          child: FlashBar(
+            message: Text(
+              mensaje,
+              style: TextStyle(color: Colors.white, fontFamily: 'GilroyB'),
+            ),
+          ),
+        );
+      },
     );
   }
 }

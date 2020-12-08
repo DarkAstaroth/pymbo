@@ -68,7 +68,8 @@ class CategoriaBloc extends Bloc<CategoriaEvent, CategoriaState> {
   Stream<CategoriaState> _mapCategoriaUpdatedDBToState(
       CategoriaUpdatedDB event) async* {
     await _categoriaRepository.updateCategoria(
-        event.idCategoria, event.nombreCategoria);
+        event.idCategoria, 
+        event.nombreCategoria);
   }
 
   @override

@@ -22,6 +22,7 @@ class _PerfilEventoState extends State<PerfilEvento> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       floatingActionButton: FloatingActionButton(
           backgroundColor: Color(0XFFE63946),
@@ -57,6 +58,7 @@ class _PerfilEventoState extends State<PerfilEvento> {
               );
             }
             if (state is EventoLoaded) {
+              
               for (var i = 0; i < state.eventos.length; i++) {
                 if (state.eventos[i].idNegocio == widget.negocio.id) {
                   eventoList.add(state.eventos[i]);
@@ -70,7 +72,9 @@ class _PerfilEventoState extends State<PerfilEvento> {
               : Expanded(child: ListView.builder(
                   itemCount: eventoList.length,
                   itemBuilder: (_, int index) {
+                    
                     return EventoAdminCard(
+                      idEvento : eventoList[index].idEvento,
                       titulo: eventoList[index].tituloEvento,
                       fotoCartel : eventoList[index].fotoCartel,
                       desc : eventoList[index].desc

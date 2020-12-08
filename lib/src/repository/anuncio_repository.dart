@@ -15,6 +15,28 @@ class AnuncioRepository {
     });
   }
 
+  Future<void> deleteAnuncio(String id) async{
+    await dataBaseReference.document(id).delete();
+  }
+
+  Future<void> updateAnuncio(
+    String id,
+    String anuncioUrl,
+    String fechaInicio,
+    String fechaFin,
+    String descCorta,
+    String desclarga
+    ) async{
+    await dataBaseReference.document(id).updateData({
+      'fotoAnuncio': anuncioUrl,
+      'fechaInicio': fechaInicio,
+      'fechaFin': fechaFin,
+      'descCorta': descCorta,
+      'desclarga': desclarga,
+    });
+
+  }
+
   Future<void> putAnuncios(
     File fotoAnuncio,
     String idNegocio,

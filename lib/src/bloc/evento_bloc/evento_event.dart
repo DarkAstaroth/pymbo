@@ -69,3 +69,49 @@ class EventoUpdated extends EventoEvent{
 
 
 }
+
+class EventoDeleted extends EventoEvent{
+
+  final String idEvento;
+
+  const EventoDeleted(this.idEvento);
+
+  @override
+  List<Object> get props => [idEvento];
+
+
+}
+
+class EventoUpdatedDB extends EventoEvent{
+
+  final String idEvento;
+  final String tituloEvento;
+  final String fotoPortada;
+  final String fotoCartel;
+  final String hora;
+  final String fechaInicio;
+  final String fechaFin;
+  final String precio;
+  final String cupos;
+  final String vigencia;
+  final String desc;
+
+  const EventoUpdatedDB(this.idEvento, this.tituloEvento, this.fotoPortada, this.fotoCartel, this.hora, this.fechaInicio, this.fechaFin, this.precio, this.cupos, this.vigencia, this.desc);
+
+  @override
+  List<Object> get props => [
+     idEvento,
+   tituloEvento,
+   fotoPortada,
+   fotoCartel,
+   hora,
+   fechaInicio,
+   fechaFin,
+   precio,
+   cupos,
+   vigencia,
+   desc,
+  ];
+
+
+}

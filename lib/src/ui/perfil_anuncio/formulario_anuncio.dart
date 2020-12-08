@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rounded_date_picker/rounded_picker.dart';
@@ -229,7 +230,7 @@ class _FormularioAnuncioState extends State<FormularioAnuncio> {
                     localizations1.formatTimeOfDay(timePicked);
                 setState(() {
                   timeCtl.text = formattedTimeOfDay1.toString();
-                  horaInicio =formattedTimeOfDay1.toString();
+                  horaInicio = formattedTimeOfDay1.toString();
                 });
               },
             ),
@@ -281,14 +282,15 @@ class _FormularioAnuncioState extends State<FormularioAnuncio> {
                 color: Color(0xFFE63946),
                 elevation: 0,
                 onPressed: () {
-                  BlocProvider.of<AnuncioBloc>(context).add(
-                    AddAnuncio(
-                      widget.imagenAnuncio, 
-                      widget.negocio.id, 
-                      fechaInicio, 
-                      fechaFin, 
-                      "0", 
-                      descCorta, 
+                  _showMessage(
+                      context, "Anuncio eliminado con exito!", Colors.green);
+                  BlocProvider.of<AnuncioBloc>(context).add(AddAnuncio(
+                      widget.imagenAnuncio,
+                      widget.negocio.id,
+                      fechaInicio,
+                      fechaFin,
+                      "0",
+                      descCorta,
                       descLarga));
                   Navigator.pop(context);
                 },
@@ -301,6 +303,29 @@ class _FormularioAnuncioState extends State<FormularioAnuncio> {
           )
         ],
       ),
+    );
+  }
+
+  void _showMessage(BuildContext context, String mensaje, MaterialColor green) {
+        showFlash(
+      context: context,
+      duration: Duration(seconds: 2),
+      builder: (context, controller) {
+        return Flash(
+          backgroundColor: green,
+          position: FlashPosition.bottom,
+          controller: controller,
+          style: FlashStyle.floating,
+          boxShadows: kElevationToShadow[4],
+          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
+          child: FlashBar(
+            message: Text(
+              mensaje,
+              style: TextStyle(color: Colors.white, fontFamily: 'GilroyB'),
+            ),
+          ),
+        );
+      },
     );
   }
 }

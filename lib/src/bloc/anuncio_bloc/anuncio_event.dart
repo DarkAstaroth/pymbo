@@ -57,3 +57,29 @@ class AnuncioUpdated extends AnuncioEvent{
 
 
 }
+class AnuncioDeleted extends AnuncioEvent{
+
+  final String idAnuncio;
+
+  const AnuncioDeleted(this.idAnuncio);
+
+  @override
+  List<Object> get props => [idAnuncio];
+
+
+}
+
+class AnuncioUpdatedDB extends AnuncioEvent{
+
+    final String id;
+    final String anuncioUrl;
+    final String fechaInicio;
+    final String fechaFin;
+    final String descCorta;
+    final String desclarga;
+
+  const  AnuncioUpdatedDB(this.id,this.anuncioUrl, this.fechaInicio, this.fechaFin, this.descCorta, this.desclarga);@override
+  List<Object> get props => [anuncioUrl,fechaInicio,fechaFin,descCorta,desclarga];
+
+
+}

@@ -1,12 +1,19 @@
+import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pymbo/src/bloc/evento_bloc/evento_bloc.dart';
+import 'package:pymbo/src/bloc/evento_bloc/evento_event.dart';
+import 'package:pymbo/src/ui/perfil_negocio/perfil_negocio.dart';
 
 class EventoAdminCard extends StatelessWidget {
-
+  final String idEvento;
   final String titulo;
   final String fotoCartel;
   final String desc;
 
-  const EventoAdminCard({Key key, this.titulo, this.fotoCartel, this.desc}) : super(key: key);
+  const EventoAdminCard(
+      {Key key, this.idEvento, this.titulo, this.fotoCartel, this.desc})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +43,8 @@ class EventoAdminCard extends StatelessWidget {
               height: 120,
               child: ClipRRect(
                 child: FadeInImage(
-                  placeholder: AssetImage("assets/img/load-app.gif"), 
-                  image: NetworkImage(fotoCartel)),
+                    placeholder: AssetImage("assets/img/load-app.gif"),
+                    image: NetworkImage(fotoCartel)),
               ),
             ),
             Expanded(
@@ -72,6 +79,17 @@ class EventoAdminCard extends StatelessWidget {
                   Icons.more_vert,
                   color: Color(0XFFE63946),
                 ),
+                onSelected: (result) {
+                  if (result == '1') {}
+                  if (result == '2') {}
+                  if (result == '3') {
+                    _showMessage(context, "Evento eliminada con exito!",
+                        Color(0XFFE63946));
+                    BlocProvider.of<EventoBloc>(context)
+                        .add(EventoDeleted(idEvento));
+                    
+                  }
+                },
                 itemBuilder: (context) => [
                       PopupMenuItem(
                           value: '1',
@@ -82,6 +100,7 @@ class EventoAdminCard extends StatelessWidget {
                                 TextStyle(fontFamily: 'GilroyB', fontSize: 13),
                           )),
                       PopupMenuItem(
+                          value: "2",
                           height: 25,
                           child: Text(
                             "Editar",
@@ -89,6 +108,7 @@ class EventoAdminCard extends StatelessWidget {
                                 TextStyle(fontFamily: 'GilroyB', fontSize: 13),
                           )),
                       PopupMenuItem(
+                          value: "3",
                           height: 25,
                           child: Text(
                             "Eliminar",
@@ -100,5 +120,30 @@ class EventoAdminCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _showMessage(BuildContext context, String mensaje, Color color) {
+
+    showFlash(
+      context: context,
+      duration: Duration(seconds: 2),
+      builder: (context, controller) {
+        return Flash(
+          backgroundColor: color,
+          position: FlashPosition.bottom,
+          controller: controller,
+          style: FlashStyle.floating,
+          boxShadows: kElevationToShadow[4],
+          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
+          child: FlashBar(
+            message: Text(
+              mensaje,
+              style: TextStyle(color: Colors.white, fontFamily: 'GilroyB'),
+            ),
+          ),
+        );
+      },
+    );
+  
   }
 }

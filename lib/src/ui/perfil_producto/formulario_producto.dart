@@ -1,6 +1,5 @@
-
-
 import 'dart:io';
+import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pymbo/src/bloc/producto_bloc/producto_bloc.dart';
@@ -11,7 +10,8 @@ class FormularioProducto extends StatefulWidget {
   final Negocio negocio;
   final File productoImage;
 
-  const FormularioProducto({Key key, this.negocio, this.productoImage}) : super(key: key);
+  const FormularioProducto({Key key, this.negocio, this.productoImage})
+      : super(key: key);
   @override
   _FormularioProductoState createState() => _FormularioProductoState();
 }
@@ -23,7 +23,6 @@ class _FormularioProductoState extends State<FormularioProducto> {
   String precio;
   String stock;
 
-  
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -52,9 +51,9 @@ class _FormularioProductoState extends State<FormularioProducto> {
               autovalidate: true,
               autocorrect: true,
               onChanged: (value) {
-                 setState(() {
-                   nombreProducto = value;
-                 });
+                setState(() {
+                  nombreProducto = value;
+                });
               },
             ),
           ),
@@ -78,9 +77,9 @@ class _FormularioProductoState extends State<FormularioProducto> {
               autovalidate: true,
               autocorrect: true,
               onChanged: (value) {
-                 setState(() {
-                   descCorta = value;
-                 });
+                setState(() {
+                  descCorta = value;
+                });
               },
             ),
           ),
@@ -111,7 +110,6 @@ class _FormularioProductoState extends State<FormularioProducto> {
               },
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
@@ -132,9 +130,9 @@ class _FormularioProductoState extends State<FormularioProducto> {
               autovalidate: true,
               autocorrect: true,
               onChanged: (value) {
-                 setState(() {
-                   precio = value;
-                 });
+                setState(() {
+                  precio = value;
+                });
               },
             ),
           ),
@@ -164,7 +162,6 @@ class _FormularioProductoState extends State<FormularioProducto> {
               },
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: ButtonTheme(
@@ -173,18 +170,18 @@ class _FormularioProductoState extends State<FormularioProducto> {
               child: RaisedButton(
                 color: Color(0xFFE63946),
                 elevation: 0,
-                onPressed: (){
-                  BlocProvider.of<ProductoBloc>(context).add(
-                    AddProducto(
-                    widget.negocio.id, 
-                    nombreProducto, 
-                    widget.productoImage, 
-                    descCorta, 
-                    descLarga, 
-                    precio, 
-                    stock)
-                    );
-                    Navigator.pop(context);
+                onPressed: () {
+                  _showMessage(context, "Categoria eliminada con exito!",
+                      Color(0XFFE63946));
+                  BlocProvider.of<ProductoBloc>(context).add(AddProducto(
+                      widget.negocio.id,
+                      nombreProducto,
+                      widget.productoImage,
+                      descCorta,
+                      descLarga,
+                      precio,
+                      stock));
+                  Navigator.pop(context);
                 },
                 child: Text(
                   'Guardar Cambios ',
@@ -195,6 +192,29 @@ class _FormularioProductoState extends State<FormularioProducto> {
           )
         ],
       ),
+    );
+  }
+
+  void _showMessage(BuildContext context, String mensaje, Color color) {
+    showFlash(
+      context: context,
+      duration: Duration(seconds: 2),
+      builder: (context, controller) {
+        return Flash(
+          backgroundColor: color,
+          position: FlashPosition.bottom,
+          controller: controller,
+          style: FlashStyle.floating,
+          boxShadows: kElevationToShadow[4],
+          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
+          child: FlashBar(
+            message: Text(
+              mensaje,
+              style: TextStyle(color: Colors.white, fontFamily: 'GilroyB'),
+            ),
+          ),
+        );
+      },
     );
   }
 }

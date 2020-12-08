@@ -15,6 +15,39 @@ class EventoRepository {
     });
   }
 
+   Future<void> deleteEvento(String id) async{
+    await dataBaseReference.document(id).delete();
+  }
+
+  Future<void> updateEvento(
+    String id,
+    String tituloEvento,
+    String fotoPortada,
+    String fotoCartel,
+    String hora,
+    String fechaInicio,
+    String fechaFin,
+    String precio,
+    String cupos,
+    String vigencia,
+    String desc
+    ) async{
+    await dataBaseReference.document(id).updateData({
+
+      'tituloEvento': tituloEvento,
+      'fotoPortada': fotoPortada,
+      'fotoCartel': fotoCartel,
+      'hora': hora,
+      'fechaInicio': fechaInicio,
+      'fechaFin': fechaFin,
+      'precio': precio,
+      'cupos': cupos,
+      'vigencia': vigencia,
+      'desc': desc,
+    });
+
+  }
+
   Future<void> putEventos(
     String idNegocio,
     String tituloEvento,

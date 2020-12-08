@@ -68,10 +68,12 @@ class _PerfilAnuncioState extends State<PerfilAnuncio> {
                       child: Text("No hay Anuncios disponibles"),
                     )
 
-              : Expanded(child: ListView.builder(
+              : Expanded(
+                child: ListView.builder(
                   itemCount: anuncioList.length,
                   itemBuilder: (_, int index) {
                     return AnuncioAdminCard(
+                      idAnuncio: anuncioList[index].idAnuncio,
                       descLarga: anuncioList[index].desclarga,
                       fotoAnuncio : anuncioList[index].fotoAnuncio,
                       );

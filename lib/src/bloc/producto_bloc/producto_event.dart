@@ -56,3 +56,39 @@ class ProductoUpdated extends ProductoEvent{
 
 
 }
+
+class ProductoDeleted extends ProductoEvent{
+
+  final String idProducto;
+
+  const ProductoDeleted(this.idProducto);
+
+  @override
+  List<Object> get props => [idProducto];
+
+
+}
+
+class ProductoUpdatedDB extends ProductoEvent{
+
+  final String idProducto;
+  final String nombreProducto;
+  final String fotoProducto;
+  final String descCorta;
+  final String descLarga;
+  final String precio;
+  final String stock;
+
+  const ProductoUpdatedDB(this.idProducto, this.nombreProducto, this.fotoProducto, this.descCorta, this.descLarga, this.precio, this.stock);@override
+  List<Object> get props => [
+  idProducto,
+  nombreProducto,
+  fotoProducto,
+  descCorta,
+  descLarga,
+  precio,
+  stock,
+  ];
+
+
+}

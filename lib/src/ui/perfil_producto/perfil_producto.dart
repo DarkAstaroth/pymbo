@@ -70,6 +70,7 @@ class _PerfilProductoState extends State<PerfilProducto> {
                   itemCount: productoList.length,
                   itemBuilder: (_, int index) {
                     return ProductoAdminCard(
+                      idProducto: productoList[index].idProducto,
                       nombre: productoList[index].nombreProducto,
                       imagenProducto : productoList[index].fotoProducto,
                       desc : productoList[index].descCorta

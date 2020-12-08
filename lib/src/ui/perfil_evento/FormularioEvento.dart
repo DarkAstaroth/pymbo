@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -29,7 +30,9 @@ class _FormularioEventoState extends State<FormularioEvento> {
   final formKey = GlobalKey<FormState>();
 
   @override
+  
   Widget build(BuildContext context) {
+    
     return Form(
       key: formKey,
       child: Column(
@@ -175,6 +178,7 @@ class _FormularioEventoState extends State<FormularioEvento> {
                 color: Color(0xFFE63946),
                 elevation: 0,
                 onPressed: () {
+                  _showMessage(context, "Evento creado con exito!",Colors.green);
                   BlocProvider.of<EventoBloc>(context).add(AddEvento(
                       widget.negocio.id,
                       titulo,
@@ -198,6 +202,29 @@ class _FormularioEventoState extends State<FormularioEvento> {
           )
         ],
       ),
+    );
+  }
+
+  void _showMessage(BuildContext context, String mensaje,Color color) {
+    showFlash(
+      context: context,
+      duration: Duration(seconds: 2),
+      builder: (context, controller) {
+        return Flash(
+          backgroundColor: color,
+          position: FlashPosition.bottom,
+          controller: controller,
+          style: FlashStyle.floating,
+          boxShadows: kElevationToShadow[4],
+          horizontalDismissDirection: HorizontalDismissDirection.horizontal,
+          child: FlashBar(
+            message: Text(
+              mensaje,
+              style: TextStyle(color: Colors.white, fontFamily: 'GilroyB'),
+            ),
+          ),
+        );
+      },
     );
   }
 }

@@ -26,6 +26,10 @@ class ProductoBloc extends Bloc<ProductoEvent, ProductoState> {
       yield* _mapAddProductoToState(event);
     } else if (event is ProductoUpdated) {
       yield* _mapProductoUpdatedToState(event);
+    } else if (event is ProductoDeleted) {
+      yield* _mapProductoDeletedToState(event);
+    } else if (event is ProductoUpdatedDB) {
+      yield* _mapProductoUpdatedDBToState(event);
     }
   }
 
@@ -52,13 +56,29 @@ class ProductoBloc extends Bloc<ProductoEvent, ProductoState> {
         event.descCorta,
         event.descLarga,
         event.precio,
-        event.stock
-        );
+        event.stock);
   }
 
   Stream<ProductoState> _mapProductoUpdatedToState(
       ProductoUpdated event) async* {
     yield ProductoLoaded(event.productos);
+  }
+
+  Stream<ProductoState> _mapProductoDeletedToState(
+      ProductoDeleted event) async* {
+    await _productoRepository.deleteProducto(event.idProducto);
+  }
+
+  Stream<ProductoState> _mapProductoUpdatedDBToState(ProductoUpdatedDB event) async* {
+    await _productoRepository.updateProducto(
+        event.idProducto,
+        event.nombreProducto,
+        event.fotoProducto,
+        event.descCorta,
+        event.descLarga,
+        event.precio,
+        event.stock
+        );
   }
 
   @override

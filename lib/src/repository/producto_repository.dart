@@ -15,6 +15,30 @@ class ProductoRepository {
     });
   }
 
+   Future<void> deleteProducto(String id) async{
+    await dataBaseReference.document(id).delete();
+  }
+
+  Future<void> updateProducto(
+      String id,
+      String nombreProducto,
+      String fotoProducto,
+      String descCorta,
+      String descLarga,
+      String precio,
+      String stock
+    ) async{
+    await dataBaseReference.document(id).updateData({
+      'nombreProducto': nombreProducto,
+      'fotoProducto': fotoProducto,
+      'descCorta': descCorta,
+      'descLarga': descLarga,
+      'precio': precio,
+      'stock': stock,
+    });
+
+  }
+
   Future<void> putProductos(
       String idNegocio,
       String nombreProducto,

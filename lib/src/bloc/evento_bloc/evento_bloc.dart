@@ -26,6 +26,10 @@ class EventoBloc extends Bloc<EventoEvent, EventoState> {
       yield* _mapAddEventoToState(event);
     } else if (event is EventoUpdated) {
       yield* _mapEventoUpdatedToState(event);
+    }else if (event is EventoDeleted) {
+      yield* _mapEventoDeletedToState(event);
+    }else if (event is EventoUpdatedDB) {
+      yield* _mapEventoUpdatedDBToState(event);
     }
   }
 
@@ -62,6 +66,27 @@ class EventoBloc extends Bloc<EventoEvent, EventoState> {
 
   Stream<EventoState> _mapEventoUpdatedToState(EventoUpdated event) async* {
     yield EventoLoaded(event.eventos);
+  }
+
+  Stream<EventoState> _mapEventoDeletedToState(EventoDeleted event) async* {
+    await _eventoRepository.deleteEvento(
+        event.idEvento
+        );
+  }
+
+  Stream<EventoState> _mapEventoUpdatedDBToState(EventoUpdatedDB event) async* {
+    await _eventoRepository.updateEvento(
+        event.idEvento,
+        event.tituloEvento,
+        event.fotoPortada,
+        event.fotoCartel,
+        event.hora,
+        event.fechaInicio,
+        event.fechaFin,
+        event.precio,
+        event.cupos,
+        event.vigencia,
+        event.desc);
   }
 
   @override
